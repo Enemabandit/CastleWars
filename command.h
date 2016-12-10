@@ -3,6 +3,8 @@
 #include <iostream>
 #include <vector>
 
+#include "utils.h"
+
 //enum to be used on command validations
 enum commandList{invalid,help,inicio,dim,moedas,oponentes,castelo,mkperfil,addperfil,subperfil,rmperfil,load};
 
@@ -12,21 +14,27 @@ class Command{
     const std::string commandToExecute;
     const commandList c;
     const std::vector<std::string> argVector;
+
+    //functions to print help menus for the input commands
+    void printHelpCaracteristicas();
+    void printHelpConfiguration();
+
 public:
     //CONSTRUCTOR
     Command(std::string fc);
 
     //GET functions
-    //function to get the commandList value for the inputed command
     std::string getCommandToExecute() const {return commandToExecute;}
     std::vector<std::string> getArgVector() const {return argVector;}
+    std::vector<std::string> getArgVector(std::string fullCommand) const;
     commandList getC() const {return c;};
-
-    //atributes the inputed command to the respective enum Command value (0/invalid if the command is not valid)
     commandList atributeCommand(std::string c) const;
-    //returns a vector containing the arguments of the inputed command
-    std::vector<std::string> getArgumentsVector (std::string fullCommand) const;
 
+    //Validation functions
+    int validate();
 };
+
+
+
 
 #endif
