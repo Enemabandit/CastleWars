@@ -41,12 +41,15 @@ public:
     Builder& setWidth (const int w){this->width = w; return *this;}
     Builder& setMoedas (const int m){this->initMoedas = m; return *this;}
     Builder& setOpponents (const int o){this->numOpponents = o; return *this;}
+    Builder& setPerfil (const char p);
 
     //GET functions to print results
     int getHeight() const {return height;}
     int getWidth() const {return width;}
     int getMoedas() const {return initMoedas;}
     int getNumOpponents() const {return numOpponents;}
+    char getLastPerfilFromList() {return perfilList.back().getLabel();}
+    Perfil* getPerfilFromList(const char p);
 
     //Validation functions
     int perfilExists(const char p);

@@ -9,14 +9,7 @@
 #include "game.h"
 
 
-//TODO:function called by the moedas command
-void setMoedas(int m){std::cout << "TO BE IMPLEMENTED setMoedas(): " << m << std::endl;};
-//TODO:function called by the oponentes command
-void setOponentes(int numOp){std::cout << "TO BE IMPLEMENTED setOponentes(): " << numOp << std::endl;};
-//TODO:function called by the castelo command
 void placeCasteloOnBoard(std::string colonia, int xCoord,int yCoord){std::cout << "TO BE IMPLEMENTED placeCasteloOnBoard(): " << colonia << xCoord << yCoord << std::endl;};
-//TODO:function called by the mkperfil command
-void createPerfil(char p){std::cout << "TO BE IMPLEMENTED createPerfil(): " << p << std::endl;};
 //TODO:function called by the addperfil command
 void addCaracteristicaToPerfil(char p,int c){std::cout << "TO BE IMPLEMENTED addCaracteristicaToPerfil(): " << p << c << std::endl;}
 //TODO:function called by the subperfil command
@@ -92,12 +85,49 @@ Game setupConfig(){
                                     stringToPositiveInt(command.getArgVector()[2]));
                 break;
             case mkperfil:
-
-                createPerfil(command.getArgVector()[0].at(0));
+                if(!builder.perfilExists(command.getArgVector()[0].at(0))){
+                    builder.setPerfil(command.getArgVector()[0].at(0));
+                    std::cout << "-> Perfil " << builder.getLastPerfilFromList()
+                              << " created!" << std::endl;
+                } else {
+                    std::cout << "Perfil " << command.getArgVector()[0]
+                              << " already exists!" << std::endl;
+                }
                 break;
             case addperfil:
-                addCaracteristicaToPerfil(command.getArgVector()[0].at(0),
-                                          stringToPositiveInt(command.getArgVector()[1]));
+                if(builder.perfilExists(command.getArgVector()[0].at(0))){
+                    //Creates the modifier instance
+                    Modifier mod = mod.createNewModifier(
+                        stringToPositiveInt(command.getArgVector()[1]));
+                    if (builder.getPerfilFromList(
+                            command.getArgVector()[0].at(0))->getForca() <=
+                        mod.getCostForca()){
+                        //Updates the forca of perfil
+                        builder.getPerfilFromList(
+                            command.getArgVector()[0].at(0))->updateForca(
+                                mod.getCostForca());
+                        //Updates the cost of Pefil
+                        builder.getPerfilFromList(
+                            command.getArgVector()[0].at(0))->updateCost(
+                                mod.getCostMoedas());
+                        if(stringToPositiveInt(command.getArgVector()[1]) >= 1 ||
+                           stringToPositiveInt(command.getArgVector()[1]) <= 5){
+                            builder.getPerfilFromList(
+                                command.getArgVector()[0].at(0))->addPModifier(mod);
+                        } else {
+                            builder.getPerfilFromList(
+                                command.getArgVector()[0].at(0))->addAModifier(mod);
+                        }
+                    } else {
+                        std::cout << "No forca left in perfil "
+                                  << command.getArgVector()[0].at(0)
+                                  << " for that caracteristica!" << std::endl;
+                    }
+                } else {
+                    std::cout << "Perfil " << command.getArgVector()[0].at(0)
+                              << " doesnt exist!" << std::endl;
+                }
+
                 break;
             case subperfil:
                 removeCaracteristicaFromPerfil(command.getArgVector()[0].at(0),
