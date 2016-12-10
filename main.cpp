@@ -97,10 +97,11 @@ Game setupConfig(){
             case addperfil:
                 if(builder.perfilExists(command.getArgVector()[0].at(0))){
                     //Creates the modifier instance
-                    Modifier mod = mod.createNewModifier(
-                        stringToPositiveInt(command.getArgVector()[1]));
+                    //Modifier mod = mod.createNewModifier(
+                    //   stringToPositiveInt(command.getArgVector()[1]));
+                    Bandeira mod;
                     if (builder.getPerfilFromList(
-                            command.getArgVector()[0].at(0))->getForca() <=
+                            command.getArgVector()[0].at(0))->getForca() >=
                         mod.getCostForca()){
                         //Updates the forca of perfil
                         builder.getPerfilFromList(
@@ -114,6 +115,10 @@ Game setupConfig(){
                            stringToPositiveInt(command.getArgVector()[1]) <= 5){
                             builder.getPerfilFromList(
                                 command.getArgVector()[0].at(0))->addPModifier(mod);
+
+                            std::cout << mod.getCostForca();
+                            std::cout << builder.getPerfilFromList('a')->getForca() << std::endl; 
+
                         } else {
                             builder.getPerfilFromList(
                                 command.getArgVector()[0].at(0))->addAModifier(mod);
