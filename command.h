@@ -21,12 +21,12 @@ class Command{
 
 public:
     //CONSTRUCTOR
-    Command(std::string fc);
+    Command(const std::string fc);
 
     //GET functions
-    std::string getCommandToExecute() const {return commandToExecute;}
+    const std::string getCommandToExecute() const {return commandToExecute;}
     std::vector<std::string> getArgVector() const {return argVector;}
-    std::vector<std::string> getArgVector(std::string fullCommand) const;
+    std::vector<std::string> getArgVector(const std::string fc);
     commandList getC() const {return c;};
     commandList atributeCommand(std::string c) const;
 

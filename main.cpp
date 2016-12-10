@@ -3,19 +3,11 @@
 #include <iostream>
 #include <string>
 #include <vector>
+
 #include "utils.h"
 #include "command.h"
+#include "game.h"
 
-
-class BoardPiece{
-};
-
-class Game{
-    int numColumns;
-    int numRows;
-    BoardPiece** board;
-
-};
 
 //TODO:function called by the moedas command
 void setMoedas(int m){std::cout << "TO BE IMPLEMENTED setMoedas(): " << m << std::endl;};
@@ -39,6 +31,8 @@ Game setupConfig();
 
 //returns a new board not initialized
 BoardPiece** setBoard(int mRows, int mColumns);
+//checks if the perfil (label) alredy exists in perfilList
+int PerfilExists(char label);
 
 int main(){
     std::cout << "Welcome!" << std::endl;
@@ -50,12 +44,7 @@ int main(){
 //executes the configuration of a new simulation
 Game setupConfig(){
 
-    Game game;
-    int height;
-    int width;
-    BoardPiece** board;
-    int initMoedas;
-    int numOpponents;
+    Game::Builder builder;
 
     //Configuration MENU
     std::cout << "***CONFIGURATION***" << std::endl;
@@ -77,21 +66,25 @@ Game setupConfig(){
                 //TODO:validation of the configuration
                 break;
             case dim:
-                height = stringToPositiveInt(command.getArgVector()[0]);
-                width = stringToPositiveInt(command.getArgVector()[1]);
-                board=setBoard(height,width);
-                std::cout << "-> Board " << height << "x" << width <<
-                          " created with !sucess"<< std::endl;
+                builder.setHeight(stringToPositiveInt(
+                                      command.getArgVector()[0]));
+                builder.setWidth(stringToPositiveInt(
+                                     command.getArgVector()[1]));
+                std::cout << "-> Dimensions " << builder.getHeight() << "x"
+                          << builder.getWidth() << " set with sucess!"
+                          << std::endl;
                 break;
             case moedas:
-                initMoedas = stringToPositiveInt(command.getArgVector()[0]);
-                std::cout << "-> " << initMoedas << " set as starting moedas!"
-                          << std::endl;
+                builder.setMoedas(stringToPositiveInt(
+                                      command.getArgVector()[0]));
+                std::cout << "-> " << builder.getMoedas()
+                          << " set as starting moedas!" << std::endl;
                 break;
             case oponentes:
-                numOpponents = stringToPositiveInt(command.getArgVector()[0]);
-                std::cout << "-> " << numOpponents << " opponents created!"
-                          << std::endl;
+                builder.setOpponents(stringToPositiveInt(
+                                         command.getArgVector()[0]));
+                std::cout << "-> " << builder.getNumOpponents()
+                          << " opponents created!" << std::endl;
                 break;
             case castelo:
                 placeCasteloOnBoard(command.getArgVector()[0],
@@ -99,6 +92,7 @@ Game setupConfig(){
                                     stringToPositiveInt(command.getArgVector()[2]));
                 break;
             case mkperfil:
+
                 createPerfil(command.getArgVector()[0].at(0));
                 break;
             case addperfil:
@@ -122,17 +116,18 @@ Game setupConfig(){
         }
     } while (fullCommand != "inicio");
 
-    return game;
+    return builder.build();
 }
 
-BoardPiece** setBoard(const int mRows,const int mColumns){
+BoardPiece** setBoard(const int height,const int weight){
     BoardPiece** board;
-    board = new BoardPiece*[mRows-1];
+    board = new BoardPiece*[height-1];
 
-    for (int i = 0; i < mRows; i++){
-        board[i] = new BoardPiece[mColumns-1];
-        for (int j = 0; j < mColumns; j++)
+    for (int i = 0; i < height; i++){
+        board[i] = new BoardPiece[weight-1];
+        for (int j = 0; j < height; j++)
             board[i][j] = BoardPiece();
     }
     return board;
 }
+

@@ -27,7 +27,7 @@ commandList Command::atributeCommand(std::string c) const{
     else return commandList::invalid;}
 
 //returns a vector containing the arguments of the inputed command
-std::vector<std::string> Command::getArgVector(std::string fc) const{
+std::vector<std::string> Command::getArgVector(const std::string fc){
     std::vector<std::string> args;
     //get the arguments from the fullcommand
     std::string argString = fc.substr(fullCommand.find_first_of(' ')+1);
