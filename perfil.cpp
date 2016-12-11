@@ -52,7 +52,8 @@ Modifier Perfil::instantiateNewModifier(int id){
     case 14:
         return Aluno();
         break;
-
+    default:
+        break;
     }
 }
 
@@ -62,6 +63,8 @@ int Perfil::addModifier(int id){
     //instancia um novo modifier, rependendo do seu id
     Modifier mod = instantiateNewModifier(id);
     if (isForcaAvailable(mod.getCostForca())){
+        updateForca(mod.getCostForca());
+        updateCost(mod.getCostMoedas());
         //testa se é modificador activo ou passivo e addiciona ao vector
         (id <= 5)? addPModifier(mod): addAModifier(mod);
         return 1;

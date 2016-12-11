@@ -102,19 +102,27 @@ Game setupConfig(){
                 char label = command.getArgVector()[0].at(0);
                 int id = stringToPositiveInt(command.getArgVector()[1]);
                 int err = builder.addModifierToPerfil(label,id);
-                if (err == 1){
-                    std::cout << "->Caracteristica: " << id << " added to "
-                              << label << " Perfil" ;
-                } else {
-                    if (err == -1){
-                        std::cout << "Perfil " << label << " doesnt exist!"
-                                  << std::endl;
-                    } else {
-                        std::cout << "Perfil " << label
-                                  << " doesnt have enough forca" << std::endl;
-                    }
-                }
+                std::cout << err << "!";
 
+                switch (err){
+                case 1:
+                    //TODO: consider print Modifier label
+                    std::cout << "->Caracteristica: "
+                              << builder.getPerfilFromList() << " added to "
+                              << label << " Perfil" << std::endl;
+                    break;
+                case -1:
+                    std::cout << "Perfil " << label << " doesnt exist!"
+                              << std::endl;
+                    break;
+                case -2:
+                    std::cout << "Perfil " << label
+                              << " doesnt have enough forca" << std::endl;
+                    break;
+                default:
+                    std::cout << "Erro adding caracteristica!" << std::endl;
+                    break;
+                }
                 break;
             }
             case subperfil:

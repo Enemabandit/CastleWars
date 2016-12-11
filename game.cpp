@@ -37,7 +37,7 @@ int Game::Builder::addModifierToPerfil(char label, int id){
     if(perfilExists(label))
     {
         if(getPerfilFromList(label)->addModifier(id)){
-            return 0;
+            return 1;
         } else {
             return -2;
         }
