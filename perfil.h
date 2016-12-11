@@ -19,6 +19,7 @@ protected:
 public:
     Modifier createNewModifier(int id);
 
+
     //GET functions
     int getCostMoedas() const {return costMoedas;}
     int getCostForca() const {return costForca;}
@@ -102,6 +103,18 @@ class Perfil{
     int cost;
     std::vector<Modifier> passiveMods;
     std::vector<Modifier> activeMods;
+
+    //SET functions
+    void updateForca(int costForca){forca -= costForca;}
+    void updateCost(int costMoedas){cost += costMoedas;}
+    void addPModifier(Modifier m){passiveMods.push_back(m);}
+    void addAModifier(Modifier m){activeMods.push_back(m);}
+
+    int isForcaAvailable(int costForca);
+
+    //intantiate new modifier to be placed in the a perfil
+    Modifier instantiateNewModifier(int id);
+
 public:
     Perfil(const char l): label(l),
                           forca(10),
@@ -111,10 +124,11 @@ public:
     char getLabel() const {return label;}
     int getForca() const {return forca;}
 
-    //SET functions
-    void updateForca(int costForca){forca -= costForca;}
-    void updateCost(int costMoedas){cost += costMoedas;}
-    void addPModifier(Modifier m){passiveMods.push_back(m);}
-    void addAModifier(Modifier m){activeMods.push_back(m);}
+    //adds new modifier to a perfil
+    //retur 1:added -1:perfil doesnt exist -2:forca unavailable
+    int addModifier(int id);
+
+
+
 };
 #endif

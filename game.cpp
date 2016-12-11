@@ -1,9 +1,13 @@
 #include "game.h"
 
-Game::Builder& Game::Builder::setPerfil (const char p){
+int Game::Builder::setPerfil (const char p){
     Perfil newPerfil(p);
-    this->perfilList.push_back(newPerfil);
-    return *this;
+    if(!perfilExists(p)){
+        perfilList.push_back(newPerfil);
+        return 1;
+    } else {
+        return 0;
+    }
 }
 
 int Game::Builder::perfilExists(const char p){
@@ -24,5 +28,20 @@ Perfil* Game::Builder::getPerfilFromList(const char p){
             return found;
         }
         index++;
+    }
+}
+
+//adds new modifier a a perfil
+//return 1:added -1:perfil doesnt exist -2:forca unavailable
+int Game::Builder::addModifierToPerfil(char label, int id){
+    if(perfilExists(label))
+    {
+        if(getPerfilFromList(label)->addModifier(id)){
+            return 0;
+        } else {
+            return -2;
+        }
+    } else {
+        return -1;
     }
 }

@@ -32,6 +32,8 @@ int main(){
 
     Game game = setupConfig();
 
+
+
 }
 
 //executes the configuration of a new simulation
@@ -85,9 +87,9 @@ Game setupConfig(){
                                     stringToPositiveInt(command.getArgVector()[2]));
                 break;
             case mkperfil:
-                if(!builder.perfilExists(command.getArgVector()[0].at(0))){
-                    builder.setPerfil(command.getArgVector()[0].at(0));
-                    std::cout << "-> Perfil " << builder.getLastPerfilFromList()
+                if(builder.setPerfil(command.getArgVector()[0].at(0))){
+                    std::cout << "-> Perfil "
+                              << builder.getPerfilFromList()->getLabel()
                               << " created!" << std::endl;
                 } else {
                     std::cout << "Perfil " << command.getArgVector()[0]
@@ -95,45 +97,26 @@ Game setupConfig(){
                 }
                 break;
             case addperfil:
-                if(builder.perfilExists(command.getArgVector()[0].at(0))){
-                    //Creates the modifier instance
-                    //Modifier mod = mod.createNewModifier(
-                    //   stringToPositiveInt(command.getArgVector()[1]));
-                    Bandeira mod;
-                    if (builder.getPerfilFromList(
-                            command.getArgVector()[0].at(0))->getForca() >=
-                        mod.getCostForca()){
-                        //Updates the forca of perfil
-                        builder.getPerfilFromList(
-                            command.getArgVector()[0].at(0))->updateForca(
-                                mod.getCostForca());
-                        //Updates the cost of Pefil
-                        builder.getPerfilFromList(
-                            command.getArgVector()[0].at(0))->updateCost(
-                                mod.getCostMoedas());
-                        if(stringToPositiveInt(command.getArgVector()[1]) >= 1 ||
-                           stringToPositiveInt(command.getArgVector()[1]) <= 5){
-                            builder.getPerfilFromList(
-                                command.getArgVector()[0].at(0))->addPModifier(mod);
-
-                            std::cout << mod.getCostForca();
-                            std::cout << builder.getPerfilFromList('a')->getForca() << std::endl; 
-
-                        } else {
-                            builder.getPerfilFromList(
-                                command.getArgVector()[0].at(0))->addAModifier(mod);
-                        }
-                    } else {
-                        std::cout << "No forca left in perfil "
-                                  << command.getArgVector()[0].at(0)
-                                  << " for that caracteristica!" << std::endl;
-                    }
+            {
+                //intermidiary variables for ease of read
+                char label = command.getArgVector()[0].at(0);
+                int id = stringToPositiveInt(command.getArgVector()[1]);
+                int err = builder.addModifierToPerfil(label,id);
+                if (err == 1){
+                    std::cout << "->Caracteristica: " << id << " added to "
+                              << label << " Perfil" ;
                 } else {
-                    std::cout << "Perfil " << command.getArgVector()[0].at(0)
-                              << " doesnt exist!" << std::endl;
+                    if (err == -1){
+                        std::cout << "Perfil " << label << " doesnt exist!"
+                                  << std::endl;
+                    } else {
+                        std::cout << "Perfil " << label
+                                  << " doesnt have enough forca" << std::endl;
+                    }
                 }
 
                 break;
+            }
             case subperfil:
                 removeCaracteristicaFromPerfil(command.getArgVector()[0].at(0),
                                                stringToPositiveInt(command.getArgVector()[1]));

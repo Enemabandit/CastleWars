@@ -1,7 +1,14 @@
 #include "perfil.h"
 
 
-Modifier createNewModifier(int id){
+int Perfil::isForcaAvailable(int costForca){
+    if (forca >= costForca)
+        return 1;
+    else
+        return 0;
+}
+
+Modifier Perfil::instantiateNewModifier(int id){
     switch(id){
     case 1:
         return Bandeira();
@@ -49,6 +56,16 @@ Modifier createNewModifier(int id){
     }
 }
 
-//void Perfil::updateForca(int costForca){
-//    forca -= costForca;
-//}
+//adds new modifier to a perfil
+//retur 1:added -1:perfil doesnt exist -2:forca unavailable
+int Perfil::addModifier(int id){
+    //instancia um novo modifier, rependendo do seu id
+    Modifier mod = instantiateNewModifier(id);
+    if (isForcaAvailable(mod.getCostForca())){
+        //testa se é modificador activo ou passivo e addiciona ao vector
+        (id <= 5)? addPModifier(mod): addAModifier(mod);
+        return 1;
+    } else {
+        return 0;
+    }
+}
