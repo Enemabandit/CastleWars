@@ -64,12 +64,12 @@ public:
     int addModifierToPerfil(char label, int id);
 
     //calls the Game class constructor with the final values
-    Game build(){
-        return Game(height,
-                    width,
-                    initMoedas,
-                    numOpponents,
-                    perfilList);
+    Game* build(){
+        return new Game(height,
+                        width,
+                        initMoedas,
+                        numOpponents,
+                        perfilList);
     }
 
 };

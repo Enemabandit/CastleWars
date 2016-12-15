@@ -20,7 +20,7 @@ void deletePerfil(char p){std::cout << "TO BE IMPLEMENTED deletePerfil(): " << p
 void loadConfiguration(std::string file){std::cout << "TO BE IMPLEMENTED loadConfiguration(): " << file << std::endl;};
 
 //executes the configuration of a new simulation
-Game setupConfig();
+Game* setupConfig();
 
 //returns a new board not initialized
 BoardPiece** setBoard(int mRows, int mColumns);
@@ -30,14 +30,14 @@ int PerfilExists(char label);
 int main(){
     std::cout << "Welcome!" << std::endl;
 
-    Game game = setupConfig();
+    Game* game = setupConfig();
 
 
 
 }
 
 //executes the configuration of a new simulation
-Game setupConfig(){
+Game* setupConfig(){
 
     Game::Builder builder;
 
