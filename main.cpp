@@ -102,14 +102,13 @@ Game setupConfig(){
                 char label = command.getArgVector()[0].at(0);
                 int id = stringToPositiveInt(command.getArgVector()[1]);
                 int err = builder.addModifierToPerfil(label,id);
-                std::cout << err << "!";
 
                 switch (err){
                 case 1:
                     //TODO: consider print Modifier label
                     std::cout << "->Caracteristica: "
-                              << builder.getPerfilFromList() << " added to "
-                              << label << " Perfil" << std::endl;
+                              << id << " added to "<< "Perfil "
+                              << label << "!" << std::endl;
                     break;
                 case -1:
                     std::cout << "Perfil " << label << " doesnt exist!"
