@@ -22,7 +22,6 @@ protected:
 public:
     Modifier createNewModifier(int id);
 
-
     //GET functions
     int getCostMoedas() const {return costMoedas;}
     int getCostForca() const {return costForca;}
@@ -115,8 +114,6 @@ class Perfil{
 
     int isForcaAvailable(int costForca);
 
-    //intantiate new modifier to be placed in the a perfil
-    Modifier instantiateNewModifier(int id);
 
 public:
     Perfil(const char l): label(l),

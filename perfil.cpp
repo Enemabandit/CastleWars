@@ -8,7 +8,7 @@ int Perfil::isForcaAvailable(int costForca){
         return 0;
 }
 
-Modifier Perfil::instantiateNewModifier(int id){
+Modifier Modifier::createNewModifier(int id){
     switch(id){
     case 1:
         return Bandeira();
@@ -52,8 +52,6 @@ Modifier Perfil::instantiateNewModifier(int id){
     case 14:
         return Aluno();
         break;
-    default:
-        break;
     }
 }
 
@@ -61,7 +59,7 @@ Modifier Perfil::instantiateNewModifier(int id){
 //retur 1:added -1:perfil doesnt exist -2:forca unavailable
 int Perfil::addModifier(int id){
     //instancia um novo modifier, rependendo do seu id
-    Modifier mod = instantiateNewModifier(id);
+    Modifier mod = mod.createNewModifier(id);
     if (isForcaAvailable(mod.getCostForca())){
         updateForca(mod.getCostForca());
         updateCost(mod.getCostMoedas());
