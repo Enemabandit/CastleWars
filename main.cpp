@@ -125,10 +125,12 @@ Game* setupConfig(){
                 break;
             }
             case subperfil:
+                //NOTE: don't froget to delete()
                 removeCaracteristicaFromPerfil(command.getArgVector()[0].at(0),
                                                stringToPositiveInt(command.getArgVector()[1]));
                 break;
             case rmperfil:
+                //NOTE: don't froget to delete()
                 deletePerfil(command.getArgVector()[0].at(0));
                 break;
             case load:

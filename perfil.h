@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <vector>
+#include "utils.h"
 
 class Modifier{
 protected:
@@ -25,6 +26,8 @@ public:
     int getCostMoedas() const {return costMoedas;}
     int getCostForca() const {return costForca;}
 
+    //TODO:implement the move functions for each of the modifiers
+    //virtual void move();
 };
 
 class Bandeira: public Modifier{
@@ -81,6 +84,9 @@ class Walker: public Modifier{
 public:
     Walker(): Modifier(11,"Walker",1,1){
     }
+
+    //TODO:implement the move functions for each of the modifiers
+    //void move();
 };
 class Remedio: public Modifier{
 public:
@@ -128,8 +134,6 @@ public:
     //adds new modifier to a perfil
     //retur 1:added -1:perfil doesnt exist -2:forca unavailable
     int addModifier(int id);
-   
-
 
 
 };
