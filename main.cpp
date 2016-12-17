@@ -149,9 +149,14 @@ Game* setupConfig(){
                 break;
             }
             case rmperfil:
-                //NOTE: don't froget to delete()
-                deletePerfil(command.getArgVector()[0].at(0));
+            {
+                char label = command.getArgVector()[0].at(0);
+                int err = builder.rmPerfil(label);
+                err?
+                    std::cout << "->Perfil " << label << " eliminated!" << std::endl :
+                    std::cout << "Perfil " << label << " not found!" << std::endl;
                 break;
+            }
             case load:
                 //TODO: rethink if is needed
                 (!command.getArgVector()[0].substr(command.getArgVector()[0].length() - 4,4).compare(".txt"))?

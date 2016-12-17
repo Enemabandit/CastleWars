@@ -4,6 +4,7 @@
 #include <iostream>
 #include "perfil.h"
 
+
 class BoardPiece{
 };
 
@@ -63,6 +64,8 @@ public:
     int addModifierToPerfil(char label, int id);
     //return 1:removed -1:perfil doesnt exist -2:Modifier doesnt exist
     int rmModifierFromPerfil(char label,int id);
+    //return 1:removed 0:perfil not found
+    int rmPerfil(char label);
 
     //calls the Game class constructor with the final values
     Game* build(){

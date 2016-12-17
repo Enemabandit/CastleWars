@@ -58,3 +58,15 @@ int Game::Builder::rmModifierFromPerfil(char label,int id){
         return -1;
     }
 }
+
+//return 1:removed 0:perfil not found
+int Game::Builder::rmPerfil(char label){
+    if(perfilExists(label)){
+        getPerfilFromList(label)->deleteLists();
+        //TODO: erase the perfil in the list
+        delete getPerfilFromList(label);
+        return 1;
+    } else {
+        return 0;
+    }
+}

@@ -3,7 +3,9 @@
 
 #include <iostream>
 #include <vector>
+#include <algorithm>
 #include "utils.h"
+
 
 class Modifier{
 protected:
@@ -150,7 +152,7 @@ public:
     int addModifier(int id);
     //return 1:added 0:modifier doesnt exist
     int rmModifier(int id);
-
+    void deleteLists();
 
 };
 

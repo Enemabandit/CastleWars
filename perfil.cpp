@@ -139,3 +139,20 @@ int Perfil::rmModifier(int id){
     }
 }
 
+void Perfil::deleteLists(){
+    //iterate through passiveMods
+    for (std::vector<Modifier*>::iterator it = passiveMods.begin();
+         it != passiveMods.end(); ++it){
+        delete (*it);
+        //NOTE:this is not working, see destructor for child(virtual destructor)
+        //NOTE:review the modifier and perfil allocator and how it behaves
+        //passiveMods.clear();
+    }
+    //iterate through activeMods
+    for (std::vector<Modifier*>::iterator it = activeMods.begin();
+         it != activeMods.end(); ++it){
+        delete (*it);
+        //activeMods.clear();
+    }
+
+}
