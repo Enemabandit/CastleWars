@@ -165,6 +165,7 @@ Game* setupConfig(){
     return builder.build();
 }
 
+/*
 BoardPiece** setBoard(const int height,const int weight){
     BoardPiece** board;
     board = new BoardPiece*[height-1];
@@ -175,5 +176,5 @@ BoardPiece** setBoard(const int height,const int weight){
             board[i][j] = BoardPiece();
     }
     return board;
-}
+    }*/
 

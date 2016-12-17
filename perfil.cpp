@@ -119,27 +119,21 @@ int Perfil::addModifier(int id){
 //return 1:added 0:modifier doesnt exist
 int Perfil::rmModifier(int id){
     if (getModifierOccurrences(id) != 0){
+        ModifierPosition mod = getFirstModifierOccurrence(id);
+        //update the perfil cost and forca
+        updateCost((-mod.mod->getCostMoedas()));
+        updateForca((-mod.mod->getCostForca()));
+        //remove modifier from respective vector
         if (id <= 5) {
-            ModifierPosition mod = getFirstModifierOccurrence(id);
-            //update the perfil cost and forca
-            updateCost((-mod.mod->getCostMoedas()));
-            updateForca((-mod.mod->getCostForca()));
             //erase the modifier from vector
-            passiveMods.erase(passiveMods.begin()+(mod.index - 1));
-            //destroy the modifier
-            delete mod.mod;
-            return 1;
+            passiveMods.erase(passiveMods.begin()+(mod.index));
         } else {
-            ModifierPosition mod = getFirstModifierOccurrence(id);
-            //update the perfil cost and forca
-            updateCost((-mod.mod->getCostMoedas()));
-            updateForca((-mod.mod->getCostForca()));
             //erase modifier from vector
-            activeMods.erase(activeMods.begin()+(mod.index - 1));
-            //destroy the modifier
-            delete mod.mod;
-            return 1;
+            activeMods.erase(activeMods.begin()+(mod.index));
         }
+        //destroy the modifier
+        delete mod.mod;
+        return 1;
     } else {
         return 0;
     }

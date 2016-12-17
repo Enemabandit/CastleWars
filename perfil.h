@@ -127,9 +127,6 @@ private:
     void addPModifier(Modifier *m){passiveMods.push_back(m);}
     void addAModifier(Modifier *m){activeMods.push_back(m);}
 
-    //GET functions
-    std::vector<Modifier*>* getPassiveMods(){return &passiveMods;}
-
     int isForcaAvailable(int costForca);
 
     //return number of a specfic modifier occurrences in one perfil
