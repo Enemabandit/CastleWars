@@ -25,6 +25,7 @@ public:
     //GET functions
     int getCostMoedas() const {return costMoedas;}
     int getCostForca() const {return costForca;}
+    int getID(){return id;}
 
     //TODO:implement the move functions for each of the modifiers
     //virtual void move();
@@ -104,13 +105,21 @@ public:
     }
 };
 
+//structure that indicates the index of a modifier in a vector
+typedef struct {
+    int index;
+    Modifier * mod;
+} ModifierPosition;
+
 class Perfil{
 private:
     const char label;
     int forca;
     int cost;
+    //TODO:think about using lists
     std::vector<Modifier*> passiveMods;
     std::vector<Modifier*> activeMods;
+
 
     //SET functions
     void updateForca(int costForca){forca -= costForca;}
@@ -118,7 +127,16 @@ private:
     void addPModifier(Modifier *m){passiveMods.push_back(m);}
     void addAModifier(Modifier *m){activeMods.push_back(m);}
 
+    //GET functions
+    std::vector<Modifier*>* getPassiveMods(){return &passiveMods;}
+
     int isForcaAvailable(int costForca);
+
+    //return number of a specfic modifier occurrences in one perfil
+    int getModifierOccurrences(int id);
+    //return a pointer to the first occurrence of the modifier id
+    //and its index
+    ModifierPosition getFirstModifierOccurrence(int id);
 
     Modifier* createNewModifier(int id);
 
@@ -131,10 +149,12 @@ public:
     char getLabel() const {return label;}
     int getForca() const {return forca;}
 
-    //adds new modifier to a perfil
-    //retur 1:added -1:perfil doesnt exist -2:forca unavailable
+    //return 1:added 0:forca unavailable
     int addModifier(int id);
+    //return 1:added 0:modifier doesnt exist
+    int rmModifier(int id);
 
 
 };
+
 #endif

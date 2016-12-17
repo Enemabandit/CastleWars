@@ -10,10 +10,6 @@
 
 
 void placeCasteloOnBoard(std::string colonia, int xCoord,int yCoord){std::cout << "TO BE IMPLEMENTED placeCasteloOnBoard(): " << colonia << xCoord << yCoord << std::endl;};
-//TODO:function called by the addperfil command
-void addCaracteristicaToPerfil(char p,int c){std::cout << "TO BE IMPLEMENTED addCaracteristicaToPerfil(): " << p << c << std::endl;}
-//TODO:function called by the subperfil command
-void removeCaracteristicaFromPerfil(char p,int c){std::cout << "TO BE IMPLEMENTED removeCaracteristicaFromPerfil(): " << p << c << std::endl;}
 //TODO:function called by the rmperfil command
 void deletePerfil(char p){std::cout << "TO BE IMPLEMENTED deletePerfil(): " << p << std::endl;};
 //TODO:function called by the load command
@@ -125,10 +121,33 @@ Game* setupConfig(){
                 break;
             }
             case subperfil:
-                //NOTE: don't froget to delete()
-                removeCaracteristicaFromPerfil(command.getArgVector()[0].at(0),
-                                               stringToPositiveInt(command.getArgVector()[1]));
+            {
+                //intermidiary variables for ease of read
+                char label = command.getArgVector()[0].at(0);
+                int id = stringToPositiveInt(command.getArgVector()[1]);
+                int err = builder.rmModifierFromPerfil(label,id);
+
+                switch (err){
+                case 1:
+                    //TODO: consider print Modifier label
+                    std::cout << "->Caracteristica: "
+                              << id << " removed from "<< "Perfil "
+                              << label << "!" << std::endl;
+                    break;
+                case -1:
+                    std::cout << "Perfil " << label << " doesnt exist!"
+                              << std::endl;
+                    break;
+                case -2:
+                    std::cout << "There is no Caracteristica " << id
+                              << " in " << label << std::endl;
+                    break;
+                default:
+                    std::cout << "Erro adding caracteristica!" << std::endl;
+                    break;
+                }
                 break;
+            }
             case rmperfil:
                 //NOTE: don't froget to delete()
                 deletePerfil(command.getArgVector()[0].at(0));

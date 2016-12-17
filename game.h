@@ -17,10 +17,10 @@ private:
     const int width;
     const int initMoedas;
     const int numOpponents;
-    const std::vector<Perfil> perfilList;
+    const std::vector<Perfil*> perfilList;
 public:
 
-    Game(int h, int w, int m,int o,std::vector<Perfil> pl):
+    Game(int h, int w, int m,int o,std::vector<Perfil*> pl):
         height(h),
         width(w),
         initMoedas(m),
@@ -33,11 +33,11 @@ public:
 //BUILDER for the class Game
 class Game::Builder{
 private:
-    int                 height       = 0;
-    int                 width        = 0;
-    int                 initMoedas   = 0;
-    int                 numOpponents = 0;
-    std::vector<Perfil> perfilList;
+    int                 height;
+    int                 width;
+    int                 initMoedas;
+    int                 numOpponents;
+    std::vector<Perfil*> perfilList;
 
     //VALIDATION functions
     int perfilExists(const char p);
@@ -56,12 +56,13 @@ public:
     int getWidth() const {return width;}
     int getMoedas() const {return initMoedas;}
     int getNumOpponents() const {return numOpponents;}
-    Perfil* getPerfilFromList() {return &perfilList.back();}
+    Perfil* getPerfilFromList() {return perfilList.back();}
     Perfil* getPerfilFromList(const char p);
 
-    //adds new modifier to a perfil
-    //retur 1:added -1:perfil doesnt exist -2:forca unavailable
+    //return 1:added -1:perfil doesnt exist -2:forca unavailable
     int addModifierToPerfil(char label, int id);
+    //return 1:removed -1:perfil doesnt exist -2:Modifier doesnt exist
+    int rmModifierFromPerfil(char label,int id);
 
     //calls the Game class constructor with the final values
     Game* build(){
