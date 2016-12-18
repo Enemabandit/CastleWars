@@ -144,8 +144,6 @@ void Perfil::deleteLists(){
     for (std::vector<Modifier*>::iterator it = passiveMods.begin();
          it != passiveMods.end(); ++it){
         delete (*it);
-        //NOTE:this is not working, see destructor for child(virtual destructor)
-        //NOTE:review the modifier and perfil allocator and how it behaves
     }
     //iterate through activeMods
     for (std::vector<Modifier*>::iterator it = activeMods.begin();
@@ -154,5 +152,5 @@ void Perfil::deleteLists(){
     }
     passiveMods.clear();
     activeMods.clear();
-
 }
+

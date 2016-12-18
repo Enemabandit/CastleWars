@@ -181,7 +181,6 @@ public:
     //GET functions
     char getLabel() const {return label;}
     int getForca() const {return forca;}
-    int getPerfilIndex(char label) const;
 
     //return 1:added 0:forca unavailable
     int addModifier(int id);

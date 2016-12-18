@@ -10,8 +10,6 @@
 
 
 void placeCasteloOnBoard(std::string colonia, int xCoord,int yCoord){std::cout << "TO BE IMPLEMENTED placeCasteloOnBoard(): " << colonia << xCoord << yCoord << std::endl;};
-//TODO:function called by the rmperfil command
-void deletePerfil(char p){std::cout << "TO BE IMPLEMENTED deletePerfil(): " << p << std::endl;};
 //TODO:function called by the load command
 void loadConfiguration(std::string file){std::cout << "TO BE IMPLEMENTED loadConfiguration(): " << file << std::endl;};
 
@@ -20,16 +18,11 @@ Game* setupConfig();
 
 //returns a new board not initialized
 BoardPiece** setBoard(int mRows, int mColumns);
-//checks if the perfil (label) alredy exists in perfilList
-int PerfilExists(char label);
 
 int main(){
     std::cout << "Welcome!" << std::endl;
 
     Game* game = setupConfig();
-
-
-
 }
 
 //executes the configuration of a new simulation

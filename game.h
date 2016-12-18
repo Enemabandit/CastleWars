@@ -37,7 +37,7 @@ private:
     int                 height;
     int                 width;
     int                 initMoedas;
-    int                 numOpponents;
+    int                 numOpponents = 1;
     std::vector<Perfil*> perfilList;
 
     //VALIDATION functions
