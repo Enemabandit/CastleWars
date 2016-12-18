@@ -80,6 +80,7 @@ int Game::Builder::getPerfilIndex(const char label){
         it != perfilList.end(); ++it){
         if ((*it)->getLabel() != label)
             index++;
+        else
+            return index;
     }
-    return index;
 }
