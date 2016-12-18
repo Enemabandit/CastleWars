@@ -60,6 +60,8 @@ public:
     Perfil* getPerfilFromList() {return perfilList.back();}
     Perfil* getPerfilFromList(const char p);
 
+    int getPerfilIndex(const char label);
+
     //return 1:added -1:perfil doesnt exist -2:forca unavailable
     int addModifierToPerfil(char label, int id);
     //return 1:removed -1:perfil doesnt exist -2:Modifier doesnt exist

@@ -31,57 +31,82 @@ public:
 
     //TODO:implement the move functions for each of the modifiers
     //virtual void move();
+
+    virtual ~Modifier(){std::cout << __FUNCTION__ << std::endl;}
 };
 
 class Bandeira: public Modifier{
 public:
     Bandeira(): Modifier(1,"Bandeira",1,0){
     }
+
+    virtual ~Bandeira(){std::cout << __FUNCTION__ << std::endl;}
 };
+
 class Superior: public Modifier{
 public:
     Superior(): Modifier(2,"Superior",1,1){
     }
+
+    virtual ~Superior(){std::cout << __FUNCTION__ << std::endl;}
 };
+
 class PeleDura: public Modifier{
 public:
     PeleDura(): Modifier(3,"Pele Dura",2,2){
     }
+
+    virtual ~PeleDura(){std::cout << __FUNCTION__ << std::endl;}
 };
+
 class Armadura: public Modifier{
 public:
     Armadura(): Modifier(4,"Armadura",2,3){
     }
+
+    virtual ~Armadura(){std::cout << __FUNCTION__ << std::endl;}
 };
 class Faca: public Modifier{
 public:
     Faca(): Modifier(5,"Faca",1,1){
     }
+
+    virtual ~Faca(){std::cout << __FUNCTION__ << std::endl;}
 };
 class Espada: public Modifier{
 public:
     Espada(): Modifier(6,"Espada",2,2){
     }
+
+    virtual ~Espada(){std::cout << __FUNCTION__ << std::endl;}
 };
 class Agressao: public Modifier{
 public:
     Agressao(): Modifier(7,"Agressao",1,1){
     }
+
+    virtual ~Agressao(){std::cout << __FUNCTION__ << std::endl;}
 };
 class Ecologico: public Modifier{
 public:
     Ecologico(): Modifier(8,"Ecologico",1,1){
     }
+
+    virtual ~Ecologico(){std::cout << __FUNCTION__ << std::endl;}
 };
 class HeatSeeker: public Modifier{
 public:
     HeatSeeker(): Modifier(9,"HeatSeeker",1,1){
     }
+
+    virtual ~HeatSeeker(){std::cout << __FUNCTION__ << std::endl;}
 };
 class BuildSeeker: public Modifier{
 public:
     BuildSeeker(): Modifier(10,"BuildSeeker",1,1){
     }
+
+    virtual ~BuildSeeker(){std::cout << __FUNCTION__ << std::endl;}
 };
 class Walker: public Modifier{
 public:
@@ -90,21 +115,29 @@ public:
 
     //TODO:implement the move functions for each of the modifiers
     //void move();
+
+    virtual ~Walker(){std::cout << __FUNCTION__ << std::endl;}
 };
 class Remedio: public Modifier{
 public:
     Remedio(): Modifier(12,"Remedio",2,1){
     }
+
+    virtual ~Remedio(){std::cout << __FUNCTION__ << std::endl;}
 };
 class SecondChance: public Modifier{
 public:
     SecondChance(): Modifier(13,"Second Chance",3,1){
     }
+
+    virtual ~SecondChance(){std::cout << __FUNCTION__ << std::endl;}
 };
 class Aluno: public Modifier{
 public:
     Aluno(): Modifier(14,"Aluno",1,1){
     }
+
+    virtual ~Aluno(){std::cout << __FUNCTION__ << std::endl;}
 };
 
 //structure that indicates the index of a modifier in a vector
@@ -144,9 +177,11 @@ public:
                           forca(10),
                           cost(0){
     }
+    ~Perfil(){std::cout << __FUNCTION__ << std::endl;}
     //GET functions
     char getLabel() const {return label;}
     int getForca() const {return forca;}
+    int getPerfilIndex(char label) const;
 
     //return 1:added 0:forca unavailable
     int addModifier(int id);
