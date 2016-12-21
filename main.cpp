@@ -44,6 +44,7 @@ Game* setupConfig(){
             case invalid:
                 break;
             case help:
+                //NOTE: command.validate() is showing this menu
                 break;
             case inicio:
                 //ends configuration and initiate execution
@@ -71,10 +72,31 @@ Game* setupConfig(){
                           << " opponents created!" << std::endl;
                 break;
             case castelo:
-                placeCasteloOnBoard(command.getArgVector()[0],
-                                    stringToPositiveInt(command.getArgVector()[1]),
-                                    stringToPositiveInt(command.getArgVector()[2]));
+            {
+                char label = command.getArgVector()[0].at(0);
+                int x = stringToPositiveInt(command.getArgVector()[1]);
+                int y = stringToPositiveInt(command.getArgVector()[2]);
+                int err = builder.setCastelo(label,x,y);
+
+                switch (err){
+                case 1:
+                    std::cout << "->Castelo set to colonia " << label
+                              << " at (" << x << ","<< y  <<")!" << std::endl;
+                    break;
+                case -1:
+                    std::cout << "Colonia " << label << " doesnt exist!"
+                              << std::endl;
+                    break;
+                case -2:
+                    std::cout << "Position (" << x << "," << y
+                              << ") is invalid!" << std::endl;
+                    break;
+                default:
+                    std::cout << "Erro adding castelo!" << std::endl;
+                    break;
+                }
                 break;
+            }
             case mkperfil:
                 if(builder.setPerfil(command.getArgVector()[0].at(0))){
                     std::cout << "-> Perfil "

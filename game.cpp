@@ -1,5 +1,60 @@
 #include "game.h"
 
+void Game::Builder::setOpponents (const int o){
+    numOpponents = o;
+}
+
+bool Game::Builder::coloniaExists(const char c){
+    if(c <= 'a' + numOpponents)
+        return true;
+    return false;
+}
+
+//tests the validity of a point(if inside board and if not occupied)
+bool Game::Builder::isPointValid(Point p){
+    //is out board dimensions
+    if(p.x > height || p.y > width) return false;
+    //is it occupied by another castelo?
+    for(std::map<char,Point>::iterator it=casteloList.begin()
+            ; it != casteloList.end() ; ++it)
+        //TODO: review overload operators for this!
+        if(it->second.x == p.x && it->second.y == p.y) return false;
+
+    return true;
+}
+//tests if the castelo for that colonia was already placed
+bool Game::Builder::isCasteloPlaced(const char c){
+    for(std::map<char,Point>::iterator it=casteloList.begin()
+            ; it != casteloList.end() ; ++it){
+        if(it->first == c) return true;
+    }
+    return false;
+}
+
+//return 1:success -1:colonia doesn exist -2:posicao invalida
+int Game::Builder::setCastelo(const char label, const int x, const int y){
+    Point p;
+    p.x = x;
+    p.y = y;
+
+    if(coloniaExists(label)){
+        if(isPointValid(p)){
+            if(isCasteloPlaced(label)){
+                casteloList[label]=p;
+                return 1;
+            } else {
+                casteloList.insert(std::pair<char,Point>(label,p));
+                return 1;
+            }
+        } else {
+            return -2;
+        }
+    } else {
+        return -1;
+    }
+}
+
+//==PERFIL MANIPULATION==================
 int Game::Builder::setPerfil (const char p){
     Perfil* newPerfil = new Perfil(p);
     if(!perfilExists(p)){
