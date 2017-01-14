@@ -139,3 +139,22 @@ int Game::Builder::getPerfilIndex(const char label){
             return index;
     }
 }
+//=======================================
+//==BOARD MANIPULATION===================
+void Game::Builder::createBoard(){
+    //initialization to NULL of all the board pointers
+    //NOTE: column(height,0) is init with NULL all the pointers in column
+    std::vector<column> b(width, column(height,0));
+    board = b;
+}
+
+//=======================================
+//==GAME BUILD===========================
+Game* Game::Builder::build(){
+    return new Game(height,
+                    width,
+                    initMoedas,
+                    numOpponents,
+                    perfilList,
+                    board);
+}

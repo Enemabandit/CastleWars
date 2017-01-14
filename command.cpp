@@ -61,6 +61,7 @@ int Command::validate(){
     case inicio:
         //ends configuration and initiate execution
         //TODO:validation of the configuration
+        validation = 1;
         break;
     case dim:
         //expects 2 arguments

@@ -23,6 +23,8 @@ int main(){
     std::cout << "Welcome!" << std::endl;
 
     Game* game = setupConfig();
+
+    std::cout << "ENDED!!" << std::endl;
 }
 
 //executes the configuration of a new simulation
@@ -49,8 +51,16 @@ Game* setupConfig(){
             case inicio:
                 //ends configuration and initiate execution
                 //TODO:validation of the configuration
+                //TODO:inform the default values used
+
+                builder.createBoard();
+                //placeCastelos();
+                //createColonias();
+                //createBoardPieces
+
                 break;
             case dim:
+                //TODO:reset the castle positions
                 builder.setHeight(stringToPositiveInt(
                                       command.getArgVector()[0]));
                 builder.setWidth(stringToPositiveInt(
@@ -168,8 +178,10 @@ Game* setupConfig(){
                 char label = command.getArgVector()[0].at(0);
                 int err = builder.rmPerfil(label);
                 err?
-                    std::cout << "->Perfil " << label << " eliminated!" << std::endl :
-                    std::cout << "Perfil " << label << " not found!" << std::endl;
+                    std::cout << "->Perfil " << label << " eliminated!"
+                              << std::endl :
+                    std::cout << "Perfil " << label << " not found!"
+                              << std::endl;
                 break;
             }
             case load:
