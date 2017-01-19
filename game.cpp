@@ -56,6 +56,7 @@ int Game::Builder::setCastelo(const char label, const int x, const int y){
 
 //==PERFIL MANIPULATION==================
 int Game::Builder::setPerfil (const char p){
+    //TODO: establish a limit to the number of perfils
     Perfil* newPerfil = new Perfil(p);
     if(!perfilExists(p)){
         perfilList.push_back(newPerfil);
@@ -115,7 +116,6 @@ int Game::Builder::rmModifierFromPerfil(char label,int id){
 }
 
 //return 1:removed 0:perfil not found
-//TODO: check for memory leaks
 int Game::Builder::rmPerfil(char label){
     int index;
     if(perfilExists(label)){
@@ -149,6 +149,51 @@ void Game::Builder::createBoard(){
 }
 
 //=======================================
+//==COLONIA MANIPULATION=================
+int Game::Builder::createColonias(){
+    Colonia* newColonia;
+    for (char i = 'a'; i < 'a'+numOpponents; i++){
+        if (i == 'a'){
+            //user controled colonia
+
+            newColonia = new Colonia(initMoedas,i,perfilList,createCastelo(i));
+        } else {
+            //computer controled colonia
+            //TODO: alterar a lista de perfis dos BOTS
+            newColonia = new Colonia(initMoedas,i,perfilList,createCastelo(i));
+        }
+        coloniasList.push_back(newColonia);
+    }
+
+    if(coloniasList.size() != (unsigned int)(numOpponents +1))
+        return 0;
+    else
+        return 1;
+}
+
+//TODO: think and implement minimum distance between castles
+BoardPiece* Game::Builder::createCastelo(char label){
+    BoardPiece* newCastelo;
+    std::map<char,Point>::iterator it = casteloList.find(label);
+
+    if(it != casteloList.end())
+        newCastelo = new Castelo(it->second);
+    else {
+        newCastelo = new Castelo(getRandomPosition(height,width));
+    }
+
+    return newCastelo;
+}
+
+void Game::Builder::placeCastelosOnBoard(){
+    Point p;
+    for(int i=0;i<numOpponents;i++){
+        p = coloniasList[i]->getCastelo()->getCoords();
+        board[(p.y)-1][(p.x)-1] = coloniasList[i]->getCastelo();
+    }
+}
+
+//=======================================
 //==GAME BUILD===========================
 Game* Game::Builder::build(){
     return new Game(height,
@@ -156,5 +201,6 @@ Game* Game::Builder::build(){
                     initMoedas,
                     numOpponents,
                     perfilList,
-                    board);
+                    board,
+                    coloniasList);
 }

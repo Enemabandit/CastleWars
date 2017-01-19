@@ -9,6 +9,9 @@
 enum commandList{invalid,help,inicio,dim,moedas,oponentes,castelo,mkperfil,addperfil,subperfil,rmperfil,load};
 
 //CLASS Command
+//NOTE: para relatorio! devia ter feito uma class mãe para commandos e duas filhas para
+//      a configuracao e outra para a simulacao, de forma a simplificar o codigo
+
 class Command{
     const std::string fullCommand;
     const std::string commandToExecute;

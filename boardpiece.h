@@ -1,9 +1,8 @@
-#ifndef COLONIA_H
-#define COLONIA_H
+#ifndef BOARDPIECE_H
+#define BOARDPIECE_H
 
 #include "utils.h"
 #include "perfil.h"
-//TODO:implement and rethink the colonia related classes
 
 class BoardPiece{
 protected:
@@ -12,24 +11,24 @@ protected:
     int saude;
     int defesa;
 
-    BoardPiece();
-//    BoardPiece(Point p,int c,int s,int d)
-//        :coords(p),cost(c),saude(s),defesa(d){};
+    BoardPiece(Point p,int c,int s,int d)
+        :coords(p),cost(c),saude(s),defesa(d){};
 public:
-    virtual void display();
+
+    Point getCoords(){return coords;}
+    //virtual void display();
 };
 
 //alias columns, refering to the vector of pointers to boardpiece
 using column = std::vector<BoardPiece*>;
 
-//class Empty: public BoardPiece{
-//public:
-//    Empty():BoardPiece( ,0,0,0){}
-//};
 
 class Edificio: public BoardPiece{
 protected:
     int nivel;
+
+public:
+    Edificio(Point p, int c,int s,int d):BoardPiece(p,c,s,d){}
 };
 
 class Quinta: public Edificio{
@@ -38,15 +37,16 @@ class Quinta: public Edificio{
 class Torre: public Edificio{
 };
 
-//TODO: should castelo be here?
 class Castelo: public Edificio{
+public:
+    Castelo(Point p): Edificio(p,0,50,10){}
 };
 
 class Ser: public BoardPiece{
 private:
-    int velocidade;
-    int atack;
-    Perfil* perfil;
+//    int velocidade;
+//    int atack;
+//    Perfil* perfil;
 };
 
 #endif

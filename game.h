@@ -23,17 +23,19 @@ private:
     const int numOpponents;
     const std::vector<Perfil*> perfilList;
     std::vector<column> board;
+    std::vector<Colonia*> colonias;
 
 public:
 
     Game(int h, int w, int m,int o,std::vector<Perfil*> pl,
-         std::vector<column>b):
+         std::vector<column> b, std::vector<Colonia*> c):
         height(h),
         width(w),
         initMoedas(m),
         numOpponents(o),
         perfilList(pl),
-        board(b){
+        board(b),
+        colonias(c){
     }
 
 };
@@ -44,6 +46,7 @@ private:
     int                 height = 20;
     int                 width = 20;
     int                 initMoedas;
+    //TODO: set a max for numOpponents (probably z?)
     int                 numOpponents = 1;
     std::vector<Perfil*> perfilList;
     std::map<char,Point> casteloList;
@@ -51,14 +54,15 @@ private:
     //column is a typedef of a vector of pointers to BoardPieces
     std::vector<column> board;
 
-    std::vector<Colonia> coloniaList;
+    std::vector<Colonia*> coloniasList;
 
     //VALIDATION functions
     int perfilExists(const char p);
     bool coloniaExists(const char c);
     bool isPointValid(Point p);
-    //tests if the castelo for that colonia was already placed
+    //tests if the castelo for that colonia is already on the casteloList TODO: rename
     bool isCasteloPlaced(const char c);
+    BoardPiece* createCastelo(char label);
 
 public:
     //SET functions for
@@ -89,8 +93,14 @@ public:
     //return 1:removed 0:perfil not found
     int rmPerfil(char label);
 
+    //==COLONIA MANIPULATION=================
+    //creates the colonias that participate in the game and gives them the
+    //cooresponding perfis
+    int createColonias();
+
     //==BOARD MANIPULATION====================
     void createBoard();
+    void placeCastelosOnBoard();
 
     //==GAME BUILD============================
     //calls the Game class constructor with the final values

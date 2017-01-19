@@ -49,14 +49,14 @@ Game* setupConfig(){
                 //NOTE: command.validate() is showing this menu
                 break;
             case inicio:
-                //ends configuration and initiate execution
-                //TODO:validation of the configuration
+                //ends configuration fase and initiate execution
                 //TODO:inform the default values used
+                //TODO:validation of the configuration
+                //TODO:ends config fase only when 5 prefils are present!
 
                 builder.createBoard();
-                //placeCastelos();
-                //createColonias();
-                //createBoardPieces
+                builder.createColonias();
+                builder.placeCastelosOnBoard();
 
                 break;
             case dim:
@@ -196,17 +196,3 @@ Game* setupConfig(){
 
     return builder.build();
 }
-
-/*
-BoardPiece** setBoard(const int height,const int weight){
-    BoardPiece** board;
-    board = new BoardPiece*[height-1];
-
-    for (int i = 0; i < height; i++){
-        board[i] = new BoardPiece[weight-1];
-        for (int j = 0; j < height; j++)
-            board[i][j] = BoardPiece();
-    }
-    return board;
-    }*/
-
