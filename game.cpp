@@ -1,5 +1,7 @@
 #include "game.h"
 
+//=======================GAME BUILDER================================
+//===================================================================
 void Game::Builder::setOpponents (const int o){
     numOpponents = o;
 }
@@ -148,11 +150,19 @@ void Game::Builder::createBoard(){
     board = b;
 }
 
+void Game::Builder::placeCastelosOnBoard(){
+    Point p;
+    for(int i=0;i<numOpponents;i++){
+        p = coloniasList[i]->getCastelo()->getCoords();
+        board[(p.y)-1][(p.x)-1] = coloniasList[i]->getCastelo();
+    }
+}
+
 //=======================================
 //==COLONIA MANIPULATION=================
 int Game::Builder::createColonias(){
     Colonia* newColonia;
-    for (char i = 'a'; i < 'a'+numOpponents; i++){
+    for (char i = 'a'; i <= 'a'+numOpponents; i++){
         if (i == 'a'){
             //user controled colonia
 
@@ -185,13 +195,6 @@ BoardPiece* Game::Builder::createCastelo(char label){
     return newCastelo;
 }
 
-void Game::Builder::placeCastelosOnBoard(){
-    Point p;
-    for(int i=0;i<numOpponents;i++){
-        p = coloniasList[i]->getCastelo()->getCoords();
-        board[(p.y)-1][(p.x)-1] = coloniasList[i]->getCastelo();
-    }
-}
 
 //=======================================
 //==GAME BUILD===========================
@@ -203,4 +206,100 @@ Game* Game::Builder::build(){
                     perfilList,
                     board,
                     coloniasList);
+}
+
+//=======================GAME========================================
+//===================================================================
+
+void Game::run(){
+
+    //Game Menu
+    std::cout << "***Game Menu***" << std::endl;
+    std::cout << "" << std::endl;
+    std::string fullCommand;
+    do{
+        std::cout << "game-run: ";
+        std::getline(std::cin,fullCommand);
+        Command command = Command(fullCommand);
+        if(command.validate()){
+            switch(command.getC()){
+            case invalid:
+                break;
+            case setmoedas:
+                setMoedas(command.getArgVector()[0][0],
+                          stringToPositiveInt(command.getArgVector()[1]));
+                break;
+            case build:
+                if(coordsInRangeOfCastle(
+                    stringToPositiveInt(command.getArgVector()[1]),
+                    stringToPositiveInt(command.getArgVector()[2]),
+                    getColoniaFromList('a'))){
+
+                    makeBuilding();
+                } else {
+                    std::cout<< "invalid: Coords out of range of Castle! "
+                             << std::endl;
+                }
+
+                break;
+            default:
+                std::cout << "Command: " << command.getCommandToExecute()
+                          << " is not from configuration fase!" << std::endl;
+                break;
+            }
+        }
+    } while (fullCommand != "fim");
+}
+
+//=======================================
+//==COLONIA FUNCTIONS====================
+bool Game::coloniaExists(char c){
+    if(c > 'a' + numOpponents)
+        return false;
+    else
+        return true;
+}
+
+Colonia* Game::getColoniaFromList(char c){
+    Colonia* coloniaFound;
+    for (std::vector<Colonia*>::iterator it = colonias.begin();
+         it != colonias.end(); ++it){
+        if ((*it)->getLabel() == c){
+            coloniaFound=*it;
+        }
+    }
+    return coloniaFound;
+}
+
+
+//defines the number os moedas a colonia has (debug porposes)
+//return 1: value set / return 0: colonia not found
+int Game::setMoedas(char c, int value){
+    Colonia* colonia;
+    if (coloniaExists(c)){
+        colonia = getColoniaFromList(c);
+        colonia->setMoedas(value);
+        return 1;
+    } else {
+        return 0;
+    }
+}
+
+//=======================================
+//==BOARDPIECE FUNCTIONS=================
+
+bool Game::coordsInRangeOfCastle(int y,int x,Colonia* colonia){
+    if(x <= (colonia->getCastelo()->getCoords().x + 10) &&
+       x >= (colonia->getCastelo()->getCoords().x - 10) &&
+       y <= (colonia->getCastelo()->getCoords().y + 10) &&
+       y >= (colonia->getCastelo()->getCoords().y - 10)){
+        return true;
+    } else {
+        return false;
+    }
+}
+
+//expects validated input
+int Game::makeBuilding(std::string buildingType,int y,int x,Colonia* colonia){
+    
 }

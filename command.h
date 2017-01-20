@@ -6,7 +6,39 @@
 #include "utils.h"
 
 //enum to be used on command validations
-enum commandList{invalid,help,inicio,dim,moedas,oponentes,castelo,mkperfil,addperfil,subperfil,rmperfil,load};
+enum commandList{invalid,
+                 help,
+                 inicio,
+                 dim,
+                 moedas,
+                 oponentes,
+                 castelo,
+                 mkperfil,
+                 addperfil,
+                 subperfil,
+                 rmperfil,
+                 load,
+                 foco,
+                 zoomout,
+                 setmoedas,
+                 build,
+                 list,
+                 listp,
+                 listallp,
+                 mkbuild,
+                 repair,
+                 upgrade,
+                 sell,
+                 ser,
+                 next,
+                 nextn,
+                 ataca,
+                 recolhe,
+                 fim,
+                 save,
+                 restore,
+                 erase,
+};
 
 //CLASS Command
 //NOTE: para relatorio! devia ter feito uma class mãe para commandos e duas filhas para

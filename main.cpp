@@ -16,16 +16,19 @@ void loadConfiguration(std::string file){std::cout << "TO BE IMPLEMENTED loadCon
 //executes the configuration of a new simulation
 Game* setupConfig();
 
-//returns a new board not initialized
-BoardPiece** setBoard(int mRows, int mColumns);
-
 int main(){
     std::cout << "Welcome!" << std::endl;
 
     Game* game = setupConfig();
 
-    std::cout << "ENDED!!" << std::endl;
+    std::cout << "Configuration Finished!" << std::endl;
+    std::cout << "Game started!" << std::endl;
+
+    //main game execution
+    game->run();
+
 }
+
 
 //executes the configuration of a new simulation
 Game* setupConfig(){
@@ -190,9 +193,14 @@ Game* setupConfig(){
                     loadConfiguration(command.getArgVector()[0]) :
                     loadConfiguration(command.getArgVector()[0].append(".txt"));
                 break;
+            default:
+                std::cout <<"Command: " <<  command.getCommandToExecute()
+                          << " is not from configuration fase!"<< std::endl;
+                break;
             }
         }
     } while (fullCommand != "inicio");
 
     return builder.build();
 }
+

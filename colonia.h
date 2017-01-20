@@ -22,7 +22,11 @@ public:
         castelo(c){
     };
 
+    char getLabel();
     BoardPiece* getCastelo();
+    bool hasMoedas(int cost);
+
+    void setMoedas(int value);
 };
 
 #endif

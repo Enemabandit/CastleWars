@@ -7,6 +7,7 @@
 #include "utils.h"
 #include "boardpiece.h"
 #include "colonia.h"
+#include "command.h"
 
 //TODO:see where to use bool functions
 //TODO:see wish fuctions from builder can be reused in game
@@ -22,8 +23,20 @@ private:
     const int initMoedas;
     const int numOpponents;
     const std::vector<Perfil*> perfilList;
+    //NOTE: para relatorio, deveria ter feito da board uma class?
     std::vector<column> board;
     std::vector<Colonia*> colonias;
+
+    //==COLONIA FUNCTIONS====================
+    bool coloniaExists(char c);
+    Colonia* getColoniaFromList(char c);
+    //defines the number os moedas a colonia has (debug porposes)
+    int setMoedas(char c,int value);
+
+
+    //==COLONIA FUNCTIONS====================
+    bool coordsInRangeOfCastle(int y,int x,Colonia* colonia);
+    int makeBuilding(std::string buildingType,int x,int y,Colonia* colonia);
 
 public:
 
@@ -37,6 +50,8 @@ public:
         board(b),
         colonias(c){
     }
+
+    void run();
 
 };
 
