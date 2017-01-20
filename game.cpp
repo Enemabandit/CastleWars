@@ -154,7 +154,7 @@ void Game::Builder::placeCastelosOnBoard(){
     Point p;
     for(int i=0;i<numOpponents;i++){
         p = coloniasList[i]->getCastelo()->getCoords();
-        board[(p.y)-1][(p.x)-1] = coloniasList[i]->getCastelo();
+        board[(p.x)-1][(p.y)-1] = coloniasList[i]->getCastelo();
     }
 }
 
@@ -229,19 +229,45 @@ void Game::run(){
                 setMoedas(command.getArgVector()[0][0],
                           stringToPositiveInt(command.getArgVector()[1]));
                 break;
+            //TODO: reorganize code!!! really ugly
             case build:
-                if(coordsInRangeOfCastle(
-                    stringToPositiveInt(command.getArgVector()[1]),
-                    stringToPositiveInt(command.getArgVector()[2]),
-                    getColoniaFromList('a'))){
+            {
+                //variables created for ease of code reading
+                std::string type = command.getArgVector()[0];
+                int y = stringToPositiveInt(command.getArgVector()[1]);
+                int x = stringToPositiveInt(command.getArgVector()[2]);
+                Colonia* c = getColoniaFromList('a');
 
-                    makeBuilding();
-                } else {
-                    std::cout<< "invalid: Coords out of range of Castle! "
-                             << std::endl;
+                if(coordsInbounds(y,x)){
+                    if(coordsInRangeOfCastle(y,x,c)){
+                        if(isSpaceFree(y,x)){
+                            if (makeBuilding(type,y,x,c)){
+                                std::cout<< "Success: " << type << " created!"
+                                         << std::endl;
+                            } else {
+                                std::cout << "invalid: not enought money!"
+                                          << std::endl;
+                            }
+                        } else {
+                            std::cout <<"invalid: coordinates already ocupied!"
+                                      << std::endl;
+                        }
+                    } else {
+                        std::cout<< "invalid: Coords out of range of Castle! "
+                                 << std::endl;
+                    }
+                }else {
+                    std::cout<< "invalid : Coords out of bounds!" << std::endl;
                 }
-
-                break;
+            }
+            break;
+            case mkbuild:
+                //test bounds of coords
+                //override existing buildings?
+                //colonia exists?
+                //create free building
+                //update board
+            break;
             default:
                 std::cout << "Command: " << command.getCommandToExecute()
                           << " is not from configuration fase!" << std::endl;
@@ -300,6 +326,65 @@ bool Game::coordsInRangeOfCastle(int y,int x,Colonia* colonia){
 }
 
 //expects validated input
+//return 1:created -1:not enough money
 int Game::makeBuilding(std::string buildingType,int y,int x,Colonia* colonia){
-    
+    int result = 0;
+    //recieves 1 if buildingType is Torre and 0 if Quinta
+    int type;
+    if(buildingType == "Torre" || buildingType == "torre")
+        type = 1;
+    else
+        type = 2;
+
+    //transforms the coordinates given to a point
+    Point p;
+    p.x = x;
+    p.y = y;
+
+    BoardPiece* newBuilding = NULL;
+    switch(type){
+    case 1:
+        //Creates a new Torre
+        if((newBuilding = colonia->createTorre(p)) != NULL){
+            result = 1;
+        } else {
+            result = -1;
+        }
+        break;
+    case 2:
+        //Creates a new Quinta
+        if((newBuilding = colonia->createQuinta(p)) != NULL){
+            result = 1;
+        } else {
+            result = -1;
+        }
+        break;
+    default:
+        //should never reach this default case
+        std::cout << "invalid:unknown building type!";
+        break;
+    }
+    placeBuildingOnBoard(newBuilding);
+    return result;
+}
+
+//=======================================
+//==BOARD FUNCTIONS======================
+void Game::placeBuildingOnBoard(BoardPiece* b){
+    board[(b->getCoords().x)-1][(b->getCoords().y)-1] = b;
+}
+
+bool Game::coordsInbounds(int y,int x){
+    if (y >= 1 && y <= (int)board.size() &&
+        x >= 1 && x <= (int)board[1].size())
+        return true;
+    else
+        return false;
+}
+
+bool Game::isSpaceFree(int y, int x){
+    if (board[x-1][y-1] == NULL)
+        return true;
+    else
+        return false;
 }

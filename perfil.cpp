@@ -97,6 +97,9 @@ case 13:
 case 14:
     return new Aluno();
     break;
+default:
+    return NULL;
+    break;
 }
 }
 

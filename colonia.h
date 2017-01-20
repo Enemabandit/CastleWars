@@ -6,13 +6,18 @@
 
 class Colonia{
 private:
+    static int EID;
+
     int moedas;
     char label;
     const std::vector<Perfil*> perfilList;
     BoardPiece* castelo;
 
-    std::vector<BoardPiece*> Edificios;
-    std::vector<BoardPiece*> Seres;
+    std::vector<BoardPiece*> edificiosList;
+    std::vector<BoardPiece*> seresList;
+
+    int getEIDandUpdate();
+    bool hasMoedas(int cost) const;
 
 public:
     Colonia(int m,char l,std::vector<Perfil*> p,BoardPiece* c):
@@ -22,11 +27,14 @@ public:
         castelo(c){
     };
 
-    char getLabel();
-    BoardPiece* getCastelo();
-    bool hasMoedas(int cost);
+    char getLabel() const;
+    BoardPiece* getCastelo() const;
 
     void setMoedas(int value);
+    void subMoedas(int value);
+
+    BoardPiece* createTorre(Point p);
+    BoardPiece* createQuinta(Point p);
 };
 
 #endif

@@ -38,6 +38,11 @@ private:
     bool coordsInRangeOfCastle(int y,int x,Colonia* colonia);
     int makeBuilding(std::string buildingType,int x,int y,Colonia* colonia);
 
+    //==BOARD FUNCIONS=======================
+    void placeBuildingOnBoard(BoardPiece* b);
+    bool coordsInbounds(int y,int x);
+    bool isSpaceFree(int y,int x);
+
 public:
 
     Game(int h, int w, int m,int o,std::vector<Perfil*> pl,
