@@ -45,6 +45,7 @@ private:
     void placeBuildingOnBoard(BoardPiece* b);
     bool coordsInbounds(int y,int x);
     bool isSpaceFree(int y,int x);
+    void deleteBuildingFromBoard(BoardPiece* b);
 
 public:
 

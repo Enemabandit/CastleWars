@@ -17,7 +17,11 @@ private:
     std::vector<BoardPiece*> seresList;
 
     int getEIDandUpdate();
+    int getEdificioIndex(int givenEID);
     bool hasMoedas(int cost) const;
+
+    void subMoedas(int value);
+    void addMoedas(int value);
 
 public:
     Colonia(int m,char l,std::vector<Perfil*> p,BoardPiece* c):
@@ -31,10 +35,14 @@ public:
     BoardPiece* getCastelo() const;
 
     void setMoedas(int value);
-    void subMoedas(int value);
 
+    //return NULL if edificio doesnt exist
+    BoardPiece* getEdificio(int givenEID);
     BoardPiece* createTorre(Point p,int freeFlag);
     BoardPiece* createQuinta(Point p,int freeFlag);
+    //return edificio to delete:success NULL:edificio not found
+    BoardPiece* sellEdificio(int givenEID);
+
 };
 
 #endif

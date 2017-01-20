@@ -271,11 +271,12 @@ void Game::run(){
 
 
                 if(coordsInbounds(y,x)){
+                    //TODO: should it override other buildings?
                     if(isSpaceFree(y,x)){
                         if(coloniaExists(c)){
                             makeBuilding(type,y,x,getColoniaFromList(c),1);
                         } else {
-                            std::cout <<"invalid: Colonia  " << c
+                            std::cout <<"invalid: Colonia " << c
                                       << " doesnt exist!" << std::endl;
                         }
                     } else {
@@ -285,6 +286,19 @@ void Game::run(){
                 } else {
                     std::cout << "invalid: Coords out of bounds!" << std::endl;
                 }
+            }
+            break;
+            case sell:
+            {
+                Colonia* colonia = getColoniaFromList('a');
+                BoardPiece* edificio;
+
+                edificio = colonia->sellEdificio(
+                    stringToPositiveInt(command.getArgVector()[0]));
+                //make board point to null
+                deleteBuildingFromBoard(edificio);
+                //free memory
+                delete(edificio);
             }
             break;
             default:
@@ -410,4 +424,8 @@ bool Game::isSpaceFree(int y, int x){
         return true;
     else
         return false;
+}
+
+void Game::deleteBuildingFromBoard(BoardPiece* b){
+    board[b->getCoords().y -1][b->getCoords().x -1] = NULL;
 }
