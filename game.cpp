@@ -262,11 +262,30 @@ void Game::run(){
             }
             break;
             case mkbuild:
-                //test bounds of coords
-                //override existing buildings?
-                //colonia exists?
-                //create free building
-                //update board
+            {
+                //variables created for ease of code reading
+                std::string type = command.getArgVector()[0];
+                int y = stringToPositiveInt(command.getArgVector()[1]);
+                int x = stringToPositiveInt(command.getArgVector()[2]);
+                char c = command.getArgVector()[3][0];
+
+
+                if(coordsInbounds(y,x)){
+                    if(isSpaceFree(y,x)){
+                        if(coloniaExists(c)){
+                            makeBuilding(type,y,x,getColoniaFromList(c),1);
+                        } else {
+                            std::cout <<"invalid: Colonia  " << c
+                                      << " doesnt exist!" << std::endl;
+                        }
+                    } else {
+                        std::cout << "invalid: Coordinates already ocupied!"
+                                  << std::endl;
+                    }
+                } else {
+                    std::cout << "invalid: Coords out of bounds!" << std::endl;
+                }
+            }
             break;
             default:
                 std::cout << "Command: " << command.getCommandToExecute()
@@ -326,15 +345,16 @@ bool Game::coordsInRangeOfCastle(int y,int x,Colonia* colonia){
 }
 
 //expects validated input
+//freeFlag: 1->mkbuild, command 0->build(default)
 //return 1:created -1:not enough money
-int Game::makeBuilding(std::string buildingType,int y,int x,Colonia* colonia){
+int Game::makeBuilding(std::string buildingType,
+                       int y,int x,
+                       Colonia* colonia,
+                       int freeFlag){
     int result = 0;
     //recieves 1 if buildingType is Torre and 0 if Quinta
     int type;
-    if(buildingType == "Torre" || buildingType == "torre")
-        type = 1;
-    else
-        type = 2;
+    (buildingType == "Torre" || buildingType == "torre")? type = 1 :type = 2;
 
     //transforms the coordinates given to a point
     Point p;
@@ -345,7 +365,7 @@ int Game::makeBuilding(std::string buildingType,int y,int x,Colonia* colonia){
     switch(type){
     case 1:
         //Creates a new Torre
-        if((newBuilding = colonia->createTorre(p)) != NULL){
+        if((newBuilding = colonia->createTorre(p,freeFlag)) != NULL){
             result = 1;
         } else {
             result = -1;
@@ -353,7 +373,7 @@ int Game::makeBuilding(std::string buildingType,int y,int x,Colonia* colonia){
         break;
     case 2:
         //Creates a new Quinta
-        if((newBuilding = colonia->createQuinta(p)) != NULL){
+        if((newBuilding = colonia->createQuinta(p,freeFlag)) != NULL){
             result = 1;
         } else {
             result = -1;
@@ -368,8 +388,11 @@ int Game::makeBuilding(std::string buildingType,int y,int x,Colonia* colonia){
     return result;
 }
 
+
 //=======================================
 //==BOARD FUNCTIONS======================
+
+//expects valid input
 void Game::placeBuildingOnBoard(BoardPiece* b){
     board[(b->getCoords().x)-1][(b->getCoords().y)-1] = b;
 }

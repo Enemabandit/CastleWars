@@ -36,7 +36,10 @@ private:
 
     //==COLONIA FUNCTIONS====================
     bool coordsInRangeOfCastle(int y,int x,Colonia* colonia);
-    int makeBuilding(std::string buildingType,int x,int y,Colonia* colonia);
+    int makeBuilding(std::string buildingType,
+                     int x,int y,
+                     Colonia* c,
+                     int freeFlag = 0);
 
     //==BOARD FUNCIONS=======================
     void placeBuildingOnBoard(BoardPiece* b);

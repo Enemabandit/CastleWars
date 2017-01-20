@@ -33,8 +33,8 @@ public:
     void setMoedas(int value);
     void subMoedas(int value);
 
-    BoardPiece* createTorre(Point p);
-    BoardPiece* createQuinta(Point p);
+    BoardPiece* createTorre(Point p,int freeFlag);
+    BoardPiece* createQuinta(Point p,int freeFlag);
 };
 
 #endif

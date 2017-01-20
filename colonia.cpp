@@ -30,24 +30,36 @@ int Colonia::getEIDandUpdate() {
 }
 
 //return Torre: success, NULL:not enough money
-BoardPiece* Colonia::createTorre(Point p){
-    if(hasMoedas(30)){
+BoardPiece* Colonia::createTorre(Point p,int freeFlag){
+    if(!freeFlag){
+        if(hasMoedas(30)){
+            BoardPiece* newTorre = new Torre(p,getEIDandUpdate());
+            subMoedas(30);
+            edificiosList.push_back(newTorre);
+            return newTorre;
+        } else {
+            return NULL;
+        }
+    } else {
         BoardPiece* newTorre = new Torre(p,getEIDandUpdate());
-        subMoedas(30);
         edificiosList.push_back(newTorre);
         return newTorre;
-    } else {
-        return NULL;
     }
 }
 //return Quinta: success, NULL:not enough money
-BoardPiece* Colonia::createQuinta(Point p){
-    if(hasMoedas(20)){
+BoardPiece* Colonia::createQuinta(Point p,int freeFlag){
+    if (!freeFlag){
+        if(hasMoedas(20)){
+            BoardPiece* newQuinta = new Quinta(p,getEIDandUpdate());
+            subMoedas(20);
+            edificiosList.push_back(newQuinta);
+            return newQuinta;
+        } else {
+            return NULL;
+        }
+    } else {
         BoardPiece* newQuinta = new Quinta(p,getEIDandUpdate());
-        subMoedas(20);
         edificiosList.push_back(newQuinta);
         return newQuinta;
-    } else {
-        return NULL;
     }
 }
