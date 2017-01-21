@@ -13,13 +13,19 @@ protected:
     const std::string label;
     const int costMoedas;
     const int costForca;
-
+    int ataque;
+    int defesa;
+    int saude;
     //CONSTRUCTOR
-    Modifier(const int i,std::string l,const int cm, const int cf):
+    Modifier(const int i,std::string l,const int cm, const int cf,
+             int a = 0,int d = 0,int s = 0):
         id(i),
         label(l),
         costMoedas(cm),
-        costForca(cf){
+        costForca(cf),
+        ataque(a),
+        defesa(d),
+        saude(s){
     }
 
 public:
@@ -29,10 +35,14 @@ public:
     int getCostForca() const {return costForca;}
     int getID(){return id;}
 
+    int getAtaque() const {return ataque;}
+    int getDefesa() const {return defesa;}
+    int getSaude() const {return saude;}
+
     //TODO:implement the move functions for each of the modifiers
     //virtual void move();
 
-    virtual ~Modifier(){std::cout << __FUNCTION__ << std::endl;}
+    virtual ~Modifier(){}
 };
 
 class Bandeira: public Modifier{
@@ -40,73 +50,73 @@ public:
     Bandeira(): Modifier(1,"Bandeira",1,0){
     }
 
-    virtual ~Bandeira(){std::cout << __FUNCTION__ << std::endl;}
+    virtual ~Bandeira(){}
 };
 
 class Superior: public Modifier{
 public:
-    Superior(): Modifier(2,"Superior",1,1){
+    Superior(): Modifier(2,"Superior",1,1,0,0,1){
     }
 
-    virtual ~Superior(){std::cout << __FUNCTION__ << std::endl;}
+    virtual ~Superior(){}
 };
 
 class PeleDura: public Modifier{
 public:
-    PeleDura(): Modifier(3,"Pele Dura",2,2){
+    PeleDura(): Modifier(3,"Pele Dura",2,2,0,1){
     }
 
-    virtual ~PeleDura(){std::cout << __FUNCTION__ << std::endl;}
+    virtual ~PeleDura(){}
 };
 
 class Armadura: public Modifier{
 public:
-    Armadura(): Modifier(4,"Armadura",2,3){
+    Armadura(): Modifier(4,"Armadura",2,3,0,2){
     }
 
-    virtual ~Armadura(){std::cout << __FUNCTION__ << std::endl;}
+    virtual ~Armadura(){}
 };
 class Faca: public Modifier{
 public:
-    Faca(): Modifier(5,"Faca",1,1){
+    Faca(): Modifier(5,"Faca",1,1,1){
     }
 
-    virtual ~Faca(){std::cout << __FUNCTION__ << std::endl;}
+    virtual ~Faca(){}
 };
 class Espada: public Modifier{
 public:
     Espada(): Modifier(6,"Espada",2,2){
     }
 
-    virtual ~Espada(){std::cout << __FUNCTION__ << std::endl;}
+    virtual ~Espada(){}
 };
 class Agressao: public Modifier{
 public:
     Agressao(): Modifier(7,"Agressao",1,1){
     }
 
-    virtual ~Agressao(){std::cout << __FUNCTION__ << std::endl;}
+    virtual ~Agressao(){}
 };
 class Ecologico: public Modifier{
 public:
     Ecologico(): Modifier(8,"Ecologico",1,1){
     }
 
-    virtual ~Ecologico(){std::cout << __FUNCTION__ << std::endl;}
+    virtual ~Ecologico(){}
 };
 class HeatSeeker: public Modifier{
 public:
     HeatSeeker(): Modifier(9,"HeatSeeker",1,1){
     }
 
-    virtual ~HeatSeeker(){std::cout << __FUNCTION__ << std::endl;}
+    virtual ~HeatSeeker(){}
 };
 class BuildSeeker: public Modifier{
 public:
     BuildSeeker(): Modifier(10,"BuildSeeker",1,1){
     }
 
-    virtual ~BuildSeeker(){std::cout << __FUNCTION__ << std::endl;}
+    virtual ~BuildSeeker(){}
 };
 class Walker: public Modifier{
 public:
@@ -116,28 +126,28 @@ public:
     //TODO:implement the move functions for each of the modifiers
     //void move();
 
-    virtual ~Walker(){std::cout << __FUNCTION__ << std::endl;}
+    virtual ~Walker(){}
 };
 class Remedio: public Modifier{
 public:
     Remedio(): Modifier(12,"Remedio",2,1){
     }
 
-    virtual ~Remedio(){std::cout << __FUNCTION__ << std::endl;}
+    virtual ~Remedio(){}
 };
 class SecondChance: public Modifier{
 public:
     SecondChance(): Modifier(13,"Second Chance",3,1){
     }
 
-    virtual ~SecondChance(){std::cout << __FUNCTION__ << std::endl;}
+    virtual ~SecondChance(){}
 };
 class Aluno: public Modifier{
 public:
     Aluno(): Modifier(14,"Aluno",1,1){
     }
 
-    virtual ~Aluno(){std::cout << __FUNCTION__ << std::endl;}
+    virtual ~Aluno(){}
 };
 
 //structure that indicates the index of a modifier in a vector
@@ -180,7 +190,12 @@ public:
     ~Perfil(){std::cout << __FUNCTION__ << std::endl;}
     //GET functions
     char getLabel() const {return label;}
+    int getCost() const {return cost;}
     int getForca() const {return forca;}
+
+    int getPassiveAtaqueModifier();
+    int getPassiveDefesaModifier();
+    int getPassiveSaudeModifier();
 
     //return 1:added 0:forca unavailable
     int addModifier(int id);

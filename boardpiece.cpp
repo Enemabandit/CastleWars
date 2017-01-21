@@ -8,6 +8,19 @@ Point BoardPiece::getCoords(){
     return coords;
 }
 
+void BoardPiece::setCost(int c){
+    cost = c;
+}
+void BoardPiece::setSaude(int s){
+    saude = s;
+}
+void BoardPiece::setDefesa(int d){
+    defesa = d;
+}
+void BoardPiece::setAtaque(int a){
+    ataque = a;
+}
+
 //==EDIFICIO FUNCIONS===============
 int Edificio::getEID(){
     return EID;
@@ -15,6 +28,8 @@ int Edificio::getEID(){
 int Edificio::getSellValue(){
     return cost/2;
 }
+
+//==SER FUNCIONS====================
 
 //==DESTRUCTORS DEFINITION==========
 BoardPiece::~BoardPiece(){}

@@ -43,6 +43,8 @@ public:
     //return edificio to delete:success NULL:edificio not found
     BoardPiece* sellEdificio(int givenEID);
 
+    //return 1: success -1:not enough money
+    int createSeres(int num,Perfil* perfil);
 };
 
 #endif

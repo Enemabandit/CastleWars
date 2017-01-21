@@ -157,3 +157,29 @@ void Perfil::deleteLists(){
     activeMods.clear();
 }
 
+
+//==PERFIL PASSIVE MODS======================
+int Perfil::getPassiveAtaqueModifier(){
+    int ataqueModifier = 0;
+    for(std::vector<Modifier*>::iterator it = passiveMods.begin();
+        it != passiveMods.end(); ++it){
+        ataqueModifier += (*it)->getAtaque();
+    }
+    return ataqueModifier;
+}
+int Perfil::getPassiveDefesaModifier(){
+    int defesaModifier = 0;
+    for(std::vector<Modifier*>::iterator it = passiveMods.begin();
+        it != passiveMods.end(); ++it){
+        defesaModifier += (*it)->getDefesa();
+    }
+    return defesaModifier;
+}
+int Perfil::getPassiveSaudeModifier(){
+    int saudeModifier = 0;
+    for(std::vector<Modifier*>::iterator it = passiveMods.begin();
+        it != passiveMods.end(); ++it){
+        saudeModifier += (*it)->getSaude();
+    }
+    return saudeModifier;
+}

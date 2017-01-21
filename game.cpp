@@ -245,11 +245,11 @@ void Game::run(){
                                 std::cout<< "Success: " << type << " created!"
                                          << std::endl;
                             } else {
-                                std::cout << "invalid: not enought money!"
+                                std::cout << "invalid: not enough money!"
                                           << std::endl;
                             }
                         } else {
-                            std::cout <<"invalid: coordinates already ocupied!"
+                            std::cout <<"invalid: coordinates already occupied!"
                                       << std::endl;
                         }
                     } else {
@@ -295,15 +295,36 @@ void Game::run(){
 
                 edificio = colonia->sellEdificio(
                     stringToPositiveInt(command.getArgVector()[0]));
-                //make board point to null
+                //make board cell point to null
                 deleteBuildingFromBoard(edificio);
                 //free memory
                 delete(edificio);
             }
             break;
+            case ser:
+            {
+                int num = stringToPositiveInt(command.getArgVector()[0]);
+                char p = command.getArgVector()[1][0];
+                switch(createSeres(num,p)){
+                case 1:
+                    std::cout << num << " seres created!" << std::endl;
+                    break;
+                case -1:
+                    std::cout << "invalid: Perfil "<< p << " not found! "
+                              << std::endl;
+                    break;
+                case -2:
+                    std::cout << "invalid: Not enough money!" << std::endl;
+                    break;
+                default:
+                    std::cout << "invalid: error creating seres" << std::endl;
+                    break;
+                }
+            }
+                break;
             default:
                 std::cout << "Command: " << command.getCommandToExecute()
-                          << " is not from configuration fase!" << std::endl;
+                          << " is from configuration fase!" << std::endl;
                 break;
             }
         }
@@ -347,6 +368,7 @@ int Game::setMoedas(char c, int value){
 //=======================================
 //==BOARDPIECE FUNCTIONS=================
 
+//==EDIFICIO============
 bool Game::coordsInRangeOfCastle(int y,int x,Colonia* colonia){
     if(x <= (colonia->getCastelo()->getCoords().x + 10) &&
        x >= (colonia->getCastelo()->getCoords().x - 10) &&
@@ -402,6 +424,23 @@ int Game::makeBuilding(std::string buildingType,
     return result;
 }
 
+//==SER=================
+
+//return 1: success -1:perfil not found -2:not enough money
+int Game::createSeres(int num,char p){
+    //perfil existe?
+    Perfil* perfil = NULL;
+    if((perfil = getPerfil(p)) != NULL){
+        //NOTE:'a' is a shortcut, not ideal, needs changing
+        if((getColoniaFromList('a')->createSeres(num,perfil))){
+            return 1;
+        }else{
+            return -2;
+        }
+    } else {
+        return -1;
+    }
+}
 
 //=======================================
 //==BOARD FUNCTIONS======================
@@ -428,4 +467,20 @@ bool Game::isSpaceFree(int y, int x){
 
 void Game::deleteBuildingFromBoard(BoardPiece* b){
     board[b->getCoords().y -1][b->getCoords().x -1] = NULL;
+}
+
+//=======================================
+//==PERFIL FUNCTIONS======================
+//return NULL if not found
+Perfil* Game::getPerfil(const char p){
+    int index=0;
+    Perfil* found = NULL;
+    for(std::vector<Perfil*>::iterator it = perfilList.begin();
+        it != perfilList.end(); ++it){
+        if ((*it)->getLabel() == p){
+            found = perfilList[index];
+        }
+        index++;
+    }
+    return found;
 }

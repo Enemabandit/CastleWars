@@ -9,9 +9,6 @@
 #include "colonia.h"
 #include "command.h"
 
-//TODO:see where to use bool functions
-//TODO:see wish fuctions from builder can be reused in game
-
 class Game{
 public:
     //Builer for the class game
@@ -22,7 +19,7 @@ private:
     const int width;
     const int initMoedas;
     const int numOpponents;
-    const std::vector<Perfil*> perfilList;
+    std::vector<Perfil*> perfilList;
     //NOTE: para relatorio, deveria ter feito da board uma class?
     std::vector<column> board;
     std::vector<Colonia*> colonias;
@@ -46,6 +43,10 @@ private:
     bool coordsInbounds(int y,int x);
     bool isSpaceFree(int y,int x);
     void deleteBuildingFromBoard(BoardPiece* b);
+
+    //==PERFIL FUNCTIONS=====================
+    Perfil* getPerfil(const char c);
+    int createSeres(int num,char p);
 
 public:
 

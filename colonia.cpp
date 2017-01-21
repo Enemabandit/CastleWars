@@ -105,3 +105,19 @@ BoardPiece* Colonia::createQuinta(Point p,int freeFlag){
         return newQuinta;
     }
 }
+
+//=======================================
+//==SERES MANIPULATION===================
+
+//return 1: success -1:not enough money
+int Colonia::createSeres(int num,Perfil* perfil){
+    if(hasMoedas(num*perfil->getCost())){
+        for(int i = 0; i < num;i++){
+            Ser* ser = new Ser(castelo->getCoords(),perfil);
+            seresList.push_back(ser);
+            subMoedas(num*perfil->getCost());
+        }
+    }else{
+        return -1;
+    }
+}
