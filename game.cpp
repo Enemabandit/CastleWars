@@ -145,7 +145,7 @@ int Game::Builder::getPerfilIndex(const char label){
 //==BOARD MANIPULATION===================
 void Game::Builder::createBoard(){
     //initialization to NULL of all the board pointers
-    //NOTE: column(height,0) is init with NULL all the pointers in column
+    //NOTE: column(height,0) inits with NULL all the pointers in column
     std::vector<column> b(width, column(height,0));
     board = b;
 }
@@ -321,6 +321,8 @@ void Game::run(){
                     break;
                 }
             }
+                break;
+            case repair:
                 break;
             default:
                 std::cout << "Command: " << command.getCommandToExecute()

@@ -41,8 +41,9 @@ enum commandList{invalid,
 };
 
 //CLASS Command
-//NOTE: para relatorio! devia ter feito uma class mãe para commandos e duas filhas para
-//      a configuracao e outra para a simulacao, de forma a simplificar o codigo
+//NOTE: para relatorio! devia ter feito uma class mãe para commandos
+//      e duas filhas para a configuracao e outra para a simulacao,
+//      de forma a simplificar o codigo
 
 class Command{
     const std::string fullCommand;

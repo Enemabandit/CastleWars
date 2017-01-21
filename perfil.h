@@ -39,8 +39,8 @@ public:
     int getDefesa() const {return defesa;}
     int getSaude() const {return saude;}
 
-    //TODO:implement the move functions for each of the modifiers
-    //virtual void move();
+    //returns the coordinates in wich to move
+    virtual Point move();
 
     virtual ~Modifier(){}
 };
@@ -108,8 +108,9 @@ class HeatSeeker: public Modifier{
 public:
     HeatSeeker(): Modifier(9,"HeatSeeker",1,1){
     }
-
     virtual ~HeatSeeker(){}
+
+    Point move();
 };
 class BuildSeeker: public Modifier{
 public:
@@ -117,16 +118,16 @@ public:
     }
 
     virtual ~BuildSeeker(){}
+
+    Point move();
 };
 class Walker: public Modifier{
 public:
     Walker(): Modifier(11,"Walker",1,1){
     }
-
-    //TODO:implement the move functions for each of the modifiers
-    //void move();
-
     virtual ~Walker(){}
+
+    Point move();
 };
 class Remedio: public Modifier{
 public:

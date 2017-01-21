@@ -6,8 +6,8 @@
 
 //structure to represent coodinates
 typedef struct {
-    int x;
-    int y;
+    int x = 0;
+    int y = 0;
 } Point;
 
 //converts a positive decimal integer in a string to int (returns -1 if the number is negative or not decimal)

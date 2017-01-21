@@ -183,3 +183,27 @@ int Perfil::getPassiveSaudeModifier(){
     }
     return saudeModifier;
 }
+
+//==PERFIL ACTIVE MODS=======================
+
+//==MOVE=================
+//NOTE:ma implementacao, deveria ter feito uma class para board
+//     de modo a pedir agora o target
+Point Modifier::move(){
+    Point p;
+    return p;
+}
+Point HeatSeeker::move(){
+    Point p;
+    return p;
+}
+Point BuildSeeker::move(){
+    Point p;
+    return p;
+}
+Point Walker::move(){
+    Point p;
+    //Point target;
+    //target = getRandomPosition(,)
+    return p;
+}

@@ -20,7 +20,7 @@ private:
     const int initMoedas;
     const int numOpponents;
     std::vector<Perfil*> perfilList;
-    //NOTE: para relatorio, deveria ter feito da board uma class?
+    //NOTE: para relatorio, deveria ter feito da board uma class
     std::vector<column> board;
     std::vector<Colonia*> colonias;
 

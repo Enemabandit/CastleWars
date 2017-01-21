@@ -69,7 +69,7 @@ std::vector<std::string> Command::getArgVector(const std::string fc){
 //returns 0 and prints the error when needed
 //TODO: validation of cases where no, or 1 argument is given is not working properly!
 //TODO: rethink the type validations (use separete functions!!!)
-//NOTE: para relatorio, isto pode ser simplificado, nao estou contente com a implementacao
+//NOTE: isto pode ser simplificado, nao estou contente com a implementacao
 int Command::validate(){
     int validation = 0;
     switch(c){
