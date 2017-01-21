@@ -322,7 +322,19 @@ void Game::run(){
                 }
             }
                 break;
-            case repair:
+            case save:
+                //NOTE:this is not working, and will not work as is
+                if(saveGame(command.getArgVector()[0]) == 1){
+                    std::cout << "Game Saved!" << std::endl;
+                } else {
+                    std::cout << "invalid: save " << command.getArgVector()[0]
+                              << " already exists!" << std::endl;
+                }
+                break;
+            case list:
+                if(!(listColonia(command.getArgVector()[0][0]) == 1))
+                    std::cout << "Colonia " << command.getArgVector()[0][0]
+                              << "doesnt exist!" << std::endl;
                 break;
             default:
                 std::cout << "Command: " << command.getCommandToExecute()
@@ -485,4 +497,31 @@ Perfil* Game::getPerfil(const char p){
         index++;
     }
     return found;
+}
+
+//=======================================
+//==SAVE/LOAD FUNCTIONS==================
+//return 1:sucess -1:save already exists
+int Game::saveGame(std::string name){
+    if(savedGames.find(name) == savedGames.end()){
+        Game* newSave = new Game(height,width,initMoedas,numOpponents,
+                                 perfilList,board,colonias,savedGames);
+        savedGames.insert(std::pair<std::string,Game*>(name,newSave));
+        return 1;
+    } else {
+        return -1;
+    }
+}
+
+//=======================================
+//==DISPLAY FUNCTIONS====================
+//return 1:success -1:colonia doesnt exist
+int Game::listColonia(char name){
+    if(coloniaExists(name)){
+        Colonia* c = getColoniaFromList(name);
+        c->display();
+        return 1;
+    } else {
+        return -1;
+    }
 }

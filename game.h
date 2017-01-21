@@ -24,6 +24,10 @@ private:
     std::vector<column> board;
     std::vector<Colonia*> colonias;
 
+    std::map<std::string,Game*> savedGames;
+
+    int saveGame(std::string name);
+
     //==COLONIA FUNCTIONS====================
     bool coloniaExists(char c);
     Colonia* getColoniaFromList(char c);
@@ -48,6 +52,23 @@ private:
     Perfil* getPerfil(const char c);
     int createSeres(int num,char p);
 
+    //==DISPLAY FUNCTIONS====================
+    int listColonia(char name);
+
+    //Constructor to be used by the save functions
+    Game(int h, int w, int m,int o,std::vector<Perfil*> pl,
+         std::vector<column> b, std::vector<Colonia*> c,
+         std::map<std::string,Game*> s):
+        height(h),
+        width(w),
+        initMoedas(m),
+        numOpponents(o),
+        perfilList(pl),
+        board(b),
+        colonias(c),
+        savedGames(s){
+    }
+
 public:
 
     Game(int h, int w, int m,int o,std::vector<Perfil*> pl,
@@ -59,6 +80,7 @@ public:
         perfilList(pl),
         board(b),
         colonias(c){
+        savedGames.empty();
     }
 
     void run();
@@ -130,6 +152,7 @@ public:
     //==GAME BUILD============================
     //calls the Game class constructor with the final values
     Game* build();
+
 };
 
 #endif

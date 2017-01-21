@@ -121,3 +121,13 @@ int Colonia::createSeres(int num,Perfil* perfil){
         return -1;
     }
 }
+
+//=======================================
+//==Display==============================
+void Colonia::display(){
+    /*initscr();
+    printw("HelloWorld");
+    refresh();
+    getch();
+    endwin();*/
+}

@@ -1,6 +1,8 @@
 #ifndef COLONIA_H
 #define COLONIA_H
 
+#include <ncurses.h>
+
 #include "perfil.h"
 #include "boardpiece.h"
 
@@ -45,6 +47,8 @@ public:
 
     //return 1: success -1:not enough money
     int createSeres(int num,Perfil* perfil);
+
+    void display();
 };
 
 #endif
