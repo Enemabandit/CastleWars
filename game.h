@@ -55,6 +55,9 @@ private:
     //==DISPLAY FUNCTIONS====================
     int listColonia(char name);
 
+    //==ITERATION FUNCTIONS==================
+    void nextIteration();
+
     //Constructor to be used by the save functions
     Game(int h, int w, int m,int o,std::vector<Perfil*> pl,
          std::vector<column> b, std::vector<Colonia*> c,
@@ -83,7 +86,7 @@ public:
         savedGames.empty();
     }
 
-    void run();
+    void run(int reps = 0);
 
 };
 

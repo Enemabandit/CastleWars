@@ -211,17 +211,20 @@ Game* Game::Builder::build(){
 //=======================GAME========================================
 //===================================================================
 
-void Game::run(){
+void Game::run(int reps){
 
+    if (reps == 0){
     //Game Menu
     std::cout << "***Game Menu***" << std::endl;
     std::cout << "" << std::endl;
+    }
     std::string fullCommand;
     do{
-        std::cout << "game-run: ";
-        std::getline(std::cin,fullCommand);
-        Command command = Command(fullCommand);
-        if(command.validate()){
+        if(reps == 0){
+            std::cout << "game-run: ";
+            std::getline(std::cin,fullCommand);
+            Command command = Command(fullCommand);
+            if(command.validate()){
             switch(command.getC()){
             case invalid:
                 break;
@@ -336,11 +339,24 @@ void Game::run(){
                     std::cout << "Colonia " << command.getArgVector()[0][0]
                               << "doesnt exist!" << std::endl;
                 break;
+            case next:
+                nextIteration();
+                break;
+            case nextn:
+                run(stringToPositiveInt(command.getArgVector()[0]));
+            break;
+            case foco:
+                //use window functions of ncurses to display
+                break;
             default:
                 std::cout << "Command: " << command.getCommandToExecute()
                           << " is from configuration fase!" << std::endl;
                 break;
             }
+        }
+        } else {
+            nextIteration();
+            run(--reps);
         }
     } while (fullCommand != "fim");
 }
@@ -524,4 +540,23 @@ int Game::listColonia(char name){
     } else {
         return -1;
     }
+}
+
+//=======================================
+//==ITERATION FUNCTIONS====================
+void Game::nextIteration(){
+    //iterate coloniaslist
+    for(std::vector<Colonia*>::iterator it = colonias.begin();
+        it != colonias.end(); ++it){
+        //TODO: create computer controled colonia algorithm
+        if((*it)->getLabel() != 'a'){
+            //execute computer controled colonia commands
+        }
+        //execute edificios
+        //execute seres
+        (*it)->moveSeres();
+    }
+    //identify deaths
+    //update board
+    std::cout << "next()" << std::endl;
 }

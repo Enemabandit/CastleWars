@@ -43,7 +43,7 @@ commandList Command::atributeCommand(std::string c) const{
     else if (c == "fim") return commandList::fim;
     else if (c == "save") return commandList::save;
     else if (c == "restore") return commandList::restore;
-    else if (c == "erase") return commandList::erase;
+    else if (c == "erase") return commandList::eraseS;
     else return commandList::invalid;}
 
 //returns a vector containing the arguments of the inputed command
@@ -499,7 +499,7 @@ int Command::validate(){
             }
         }
         break;
-    case erase:
+    case eraseS:
         //expects 1 argument
         if(argVector.size() != 1) {
             std::cout << "invalid: erase expects 1 argument" << std::endl;

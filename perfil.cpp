@@ -187,23 +187,47 @@ int Perfil::getPassiveSaudeModifier(){
 //==PERFIL ACTIVE MODS=======================
 
 //==MOVE=================
+//returns the target coordinates
 //NOTE:ma implementacao, deveria ter feito uma class para board
 //     de modo a pedir agora o target
-Point Modifier::move(){
+Point Modifier::getCoordsToMove(Point cPoint){
     Point p;
     return p;
 }
-Point HeatSeeker::move(){
+Point HeatSeeker::getCoordsToMove(Point cPoint){
     Point p;
     return p;
 }
-Point BuildSeeker::move(){
+Point BuildSeeker::getCoordsToMove(Point cPoint){
     Point p;
     return p;
 }
-Point Walker::move(){
+Point Walker::getCoordsToMove(Point cPoint){
     Point p;
     //Point target;
-    //target = getRandomPosition(,)
+    //target = getRandomPosition(boardHeight,boardWidth);
+    switch((int)random_at_most(8)){
+    case 1: p.x=(cPoint.x-1); p.y=(cPoint.y+1); break;
+    case 2: p.x=(cPoint.x); p.y=(cPoint.y+1); break;
+    case 3: p.x=(cPoint.x+1); p.y=(cPoint.y+1); break;
+    case 4: p.x=(cPoint.x-1); p.y=(cPoint.y); break;
+    case 5: p.x=(cPoint.x); p.y=(cPoint.y); break;
+    case 6: p.x=(cPoint.x+1); p.y=(cPoint.y); break;
+    case 7: p.x=(cPoint.x-1); p.y=(cPoint.y+1); break;
+    case 8: p.x=(cPoint.x); p.y=(cPoint.y+1); break;
+    default: p.x=(cPoint.x+1); p.y=(cPoint.y+1); break;
+    }
     return p;
+}
+
+Point Perfil::getCoordsToMove(Point cPoint){
+    Point pSum = cPoint;
+    Point pModifier;
+    for(std::vector<Modifier*>::iterator it = activeMods.begin();
+        it != activeMods.end(); ++it){
+        pModifier = (*it)->getCoordsToMove(pSum);
+        pSum.x = pModifier.x;
+        pSum.y = pModifier.y;
+    }
+    return pSum;
 }

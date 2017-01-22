@@ -40,7 +40,7 @@ public:
     int getSaude() const {return saude;}
 
     //returns the coordinates in wich to move
-    virtual Point move();
+    virtual Point getCoordsToMove(Point cPoint);
 
     virtual ~Modifier(){}
 };
@@ -110,7 +110,7 @@ public:
     }
     virtual ~HeatSeeker(){}
 
-    Point move();
+    Point getCoordsToMove(Point cPoint);
 };
 class BuildSeeker: public Modifier{
 public:
@@ -119,7 +119,7 @@ public:
 
     virtual ~BuildSeeker(){}
 
-    Point move();
+    Point getCoordsToMove(Point cPoint);
 };
 class Walker: public Modifier{
 public:
@@ -127,7 +127,7 @@ public:
     }
     virtual ~Walker(){}
 
-    Point move();
+    Point getCoordsToMove(Point cPoint);
 };
 class Remedio: public Modifier{
 public:
@@ -203,6 +203,8 @@ public:
     //return 1:added 0:modifier doesnt exist
     int rmModifier(int id);
     void deleteLists();
+
+    Point getCoordsToMove(Point cPoint);
 
 };
 

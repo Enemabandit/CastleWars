@@ -122,12 +122,32 @@ int Colonia::createSeres(int num,Perfil* perfil){
     }
 }
 
+void Colonia::moveSeres(){
+    for(std::vector<BoardPiece*>::iterator it = seresList.begin();
+        it != seresList.end(); ++it){
+        (*it)->move();
+    }
+}
+
 //=======================================
 //==Display==============================
 void Colonia::display(){
-    /*initscr();
-    printw("HelloWorld");
+    initscr();
+    printw("Colonia %c\n", label);
+    printw("  moedas: %d\n", moedas);
+    printw("  Castelo:\n");
+    printw("    posicao: %d,%d\n",
+           castelo->getCoords().x,castelo->getCoords().y);
+    printw("    saude:   %d\n",castelo->getSaude());
+    printw("    defesa:  %d\n",castelo->getDefesa());
+    printw("\n");
+    //printw("Edificios:\n");
+    //for(std::vector<BoardPiece*>::iterator it = edificiosList.begin();
+    //    it != edificiosList.end();++it){
+    //    (*it)->displayInfo();
+    //}
     refresh();
     getch();
-    endwin();*/
+    endwin();
 }
+

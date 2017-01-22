@@ -30,6 +30,16 @@ int Edificio::getSellValue(){
 }
 
 //==SER FUNCIONS====================
+void BoardPiece::move(){
+}
+
+void Ser::move(){
+    //TODO:check if space occupied, hard to do without Board class
+      //modifier->move()
+      //updatecoords
+    Point newP = perfil->getCoordsToMove(coords);
+    coords = newP;
+}
 
 //==DESTRUCTORS DEFINITION==========
 BoardPiece::~BoardPiece(){}

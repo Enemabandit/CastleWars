@@ -25,10 +25,16 @@ public:
     virtual ~BoardPiece();
 
     Point getCoords();
+    int getSaude() {return saude;}
+    int getAtaque() {return ataque;}
+    int getDefesa() {return defesa;}
+
     //TODO: rething getSellValue() to incorporate saude%
     virtual int getSellValue();
-    //virtual void display();
     virtual int getEID();
+    //virtual void displayInfo();
+
+    virtual void move();
 };
 
 //==SUBCLASS EDIFICIO==================
@@ -70,7 +76,8 @@ public:
 //==SUBCLASS SER=======================
 class Ser: public BoardPiece{
 private:
-    const Perfil* perfil;
+    Perfil* perfil;
+
 public:
     Ser(Point p,Perfil* perfil): BoardPiece(p),perfil(perfil){
         setCost(perfil->getCost());
@@ -79,9 +86,8 @@ public:
         setSaude(perfil->getPassiveSaudeModifier());
     };
     ~Ser();
-//    int velocidade;
-//    int atack;
-//    Perfil* perfil;
+
+    void move();
 };
 
 //alias columns, refering to the vector of pointers to boardpiece

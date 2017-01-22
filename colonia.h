@@ -47,6 +47,7 @@ public:
 
     //return 1: success -1:not enough money
     int createSeres(int num,Perfil* perfil);
+    void moveSeres();
 
     void display();
 };

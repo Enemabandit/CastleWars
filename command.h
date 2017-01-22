@@ -37,7 +37,7 @@ enum commandList{invalid,
                  fim,
                  save,
                  restore,
-                 erase,
+                 eraseS,
 };
 
 //CLASS Command
