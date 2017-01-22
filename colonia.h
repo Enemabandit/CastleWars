@@ -1,7 +1,7 @@
 #ifndef COLONIA_H
 #define COLONIA_H
 
-#include <ncurses.h>
+//#include <ncurses.h>
 
 #include "perfil.h"
 #include "boardpiece.h"

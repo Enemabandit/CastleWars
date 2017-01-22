@@ -132,7 +132,11 @@ void Colonia::moveSeres(){
 //=======================================
 //==Display==============================
 void Colonia::display(){
-    initscr();
+    //NOTE: this was a test, it works but doesnt do much
+    //      I commented so that the code compiles in windows machines
+    //      (removed ncurses)
+
+  /*initscr();
     printw("Colonia %c\n", label);
     printw("  moedas: %d\n", moedas);
     printw("  Castelo:\n");
@@ -148,6 +152,6 @@ void Colonia::display(){
     //}
     refresh();
     getch();
-    endwin();
+    endwin();*/
 }
 

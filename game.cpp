@@ -348,6 +348,9 @@ void Game::run(int reps){
             case foco:
                 //use window functions of ncurses to display
                 break;
+            case fim:
+                return;
+                break;
             default:
                 std::cout << "Command: " << command.getCommandToExecute()
                           << " is from configuration fase!" << std::endl;
